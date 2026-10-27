@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Event Schedule &mdash; Diocesan Commission for Filipino Catholics</title>
+<meta name="description" content="Dates, host parishes, and times for the observances of the Diocesan Commission for Filipino Catholics.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy:       #112F45;
+    --navy-deep:  #0d2637;
+    --gold:       #EC8B33;
+    --gold-soft:  #f2d3ae;
+    --ivory:      #fbf8f4;
+    --card:       #FFFFFF;
+    --rose:       #D52E2B;
+    --ink:        #22262b;
+    --ink-soft:   #6c7480;
+    --rule:       #e3e6ea;
+    --shadow:     rgba(17, 47, 69, 0.14);
+    --font-display: Montserrat, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    --font-body:    'Times New Roman', Times, serif;
+    --font-ui:      Montserrat, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  }
+
+  * { box-sizing: border-box; }
+
+  html, body {
+    margin: 0;
+    padding: 0;
+    background: #FFFFFF;
+    color: var(--ink);
+    font-family: var(--font-body);
+    -webkit-font-smoothing: antialiased;
+    -webkit-text-size-adjust: 100%;
+    line-height: 1.6;
+  }
+
+  body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0 clamp(16px, 4vw, 32px) 4em;
+  }
+
+  a { color: var(--gold); text-decoration: none; }
+  a:hover { color: var(--navy); text-decoration: underline; }
+
+  .topband {
+    width: 100vw;
+    margin-left: calc(50% - 50vw);
+    background: var(--navy);
+    color: #FFFFFF;
+    height: auto;
+    font-family: var(--font-ui);
+    font-size: 13px;
+    letter-spacing: 0.04em;
+  }
+
+  .topband-inner {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 10px clamp(16px, 4vw, 32px);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 24px;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .topband a { color: #FFFFFF; }
+  .topband a:hover { color: var(--gold); text-decoration: none; }
+
+  @media (max-width: 720px) {
+    .topband { display: none; }
+  }
+
+  .sitebar {
+    width: 100vw;
+    margin-left: calc(50% - 50vw);
+    border-bottom: 1px solid var(--rule);
+    background: #FFFFFF;
+  }
+
+  .sitebar-inner {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 16px clamp(16px, 4vw, 32px);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px 24px;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .brand { display: flex; gap: 14px; align-items: center; color: inherit; }
+  .brand:hover { text-decoration: none; }
+  .brand img { width: clamp(48px, 10vw, 64px); height: clamp(48px, 10vw, 64px); object-fit: contain; flex: 0 0 auto; }
+  .brand-name {
+    display: block;
+    font-family: var(--font-ui);
+    font-weight: 700;
+    font-size: clamp(14px, 2.6vw, 17px);
+    color: var(--navy);
+    letter-spacing: -0.01em;
+    line-height: 1.25;
+  }
+  .brand-sub {
+    display: block;
+    font-family: var(--font-ui);
+    font-weight: 500;
+    font-size: 12px;
+    color: var(--ink-soft);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-top: 5px;
+  }
+  .sitebar-link {
+    font-family: var(--font-ui);
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--navy);
+  }
+  .sitebar-link:hover { color: var(--gold); text-decoration: none; }
+
+  .floral-divider {
+    display: block;
+    width: 100%;
+    max-width: 760px;
+    height: 1px;
+    background: var(--rule);
+    margin: 2.4em 0 0;
+  }
+  .floral-divider .fl-line, .floral-divider .fl-icon { display: none; }
+
+  header {
+    width: 100%;
+    max-width: 760px;
+    text-align: left;
+    padding-top: clamp(36px, 7vw, 56px);
+  }
+
+  .eyebrow {
+    font-family: var(--font-ui);
+    font-weight: 600;
+    font-size: 13px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin: 0 0 18px;
+  }
+
+  h1 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: clamp(34px, 5.4vw, 56px);
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    margin: 0 0 22px;
+    color: var(--navy);
+  }
+
+  h1 + .subtitle { position: relative; padding-top: 26px; }
+  h1 + .subtitle::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0;
+    width: 72px; height: 4px;
+    background: var(--gold);
+  }
+
+  .subtitle {
+    font-size: 20px;
+    line-height: 1.7;
+    color: #3b424a;
+    max-width: 60ch;
+    margin: 0 0 22px;
+    text-wrap: pretty;
+  }
+
+  .deadline-badge {
+    display: inline-block;
+    background: var(--ivory);
+    border: 0;
+    border-left: 4px solid var(--gold);
+    border-radius: 0;
+    padding: 16px 22px;
+    font-family: var(--font-body);
+    font-size: 17px;
+    line-height: 1.6;
+    color: var(--navy);
+    box-shadow: none;
+  }
+
+  .deadline-badge strong { color: var(--navy); }
+
+  form { width: 100%; max-width: 760px; padding-top: 2.2em; }
+
+  fieldset { border: none; margin: 0 0 28px; padding: 0; }
+
+  .section-card {
+    background: var(--card);
+    border: 1px solid var(--rule);
+    border-top: 4px solid var(--navy);
+    border-radius: 4px;
+    box-shadow: none;
+    padding: 28px 26px;
+  }
+
+  .section-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 6px 16px;
+    margin-bottom: 4px;
+  }
+
+  .section-title {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: clamp(22px, 3.2vw, 28px);
+    letter-spacing: -0.015em;
+    color: var(--navy);
+    margin: 0;
+  }
+
+  .section-tag {
+    font-family: var(--font-ui);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    font-style: normal;
+    color: var(--gold);
+  }
+
+  .section-note {
+    font-size: 17px;
+    line-height: 1.65;
+    color: #4b535c;
+    margin: 8px 0 24px;
+  }
+
+  .field { margin-bottom: 20px; }
+
+  .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+
+  label {
+    display: block;
+    font-family: var(--font-ui);
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    color: var(--navy);
+    margin-bottom: 8px;
+  }
+
+  .req { color: var(--rose); margin-left: 0.15em; }
+
+  input[type="text"],
+  input[type="email"],
+  input[type="tel"],
+  textarea {
+    width: 100%;
+    font-family: var(--font-body);
+    font-size: 17px;
+    color: var(--ink);
+    background: #FFFFFF;
+    border: 1px solid #808080;
+    border-radius: 0;
+    padding: 12px 12px;
+    outline: none;
+    transition: border-color 0.15s ease;
+  }
+
+  textarea { resize: vertical; min-height: 4em; line-height: 1.6; }
+
+  input:focus, textarea:focus { border-color: var(--gold); }
+
+  input:focus-visible, textarea:focus-visible, button:focus-visible {
+    outline: 2px solid var(--gold);
+    outline-offset: 0;
+  }
+
+  .hp-field {
+    position: absolute !important;
+    left: -9999px !important;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+  }
+
+  .cards-container { display: flex; flex-direction: column; gap: 16px; }
+  .cards-container:empty { display: none; }
+
+  .participant-card {
+    border: 1px solid var(--rule);
+    border-left: 4px solid var(--gold);
+    border-radius: 0;
+    padding: 22px 22px 24px;
+    background: var(--ivory);
+  }
+
+  .card-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 18px;
+  }
+
+  .card-tag {
+    font-family: var(--font-ui);
+    font-weight: 700;
+    font-size: 12px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--navy);
+  }
+
+  .remove-card {
+    background: transparent;
+    border: 1px solid #cfd5db;
+    color: var(--navy);
+    width: 30px;
+    height: 30px;
+    border-radius: 4px;
+    font-size: 16px;
+    line-height: 1;
+    cursor: pointer;
+    font-family: var(--font-ui);
+  }
+
+  .remove-card:hover { background: var(--navy); border-color: var(--navy); color: #FFFFFF; }
+
+
+  .minor-toggle, .consent-check {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-family: var(--font-body);
+    font-size: 17px;
+    line-height: 1.55;
+    color: var(--ink);
+    margin-top: 10px;
+    cursor: pointer;
+    letter-spacing: 0;
+    font-weight: 400;
+    text-transform: none;
+  }
+
+  .minor-toggle input, .consent-check input {
+    margin-top: 5px;
+    flex-shrink: 0;
+    width: 17px;
+    height: 17px;
+    accent-color: var(--gold);
+  }
+
+  .guardian-panel {
+    margin-top: 18px;
+    padding: 20px 20px 4px;
+    border: 1px solid var(--rule);
+    border-radius: 0;
+    background: #FFFFFF;
+  }
+
+  .guardian-note {
+    font-size: 16px;
+    line-height: 1.6;
+    color: var(--ink-soft);
+    margin: 0 0 18px;
+  }
+
+  .consent-check { margin: 16px 0 8px; }
+
+  .add-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: transparent;
+    border: 1px solid var(--navy);
+    color: var(--navy);
+    font-family: var(--font-ui);
+    font-weight: 600;
+    font-size: 14px;
+    padding: 12px 22px;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 20px;
+  }
+
+  .add-btn:hover { background: var(--navy); color: #FFFFFF; }
+  .add-btn:hover .plus { background: #FFFFFF; color: var(--navy); }
+
+  .add-btn .plus {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: var(--gold);
+    color: #fff;
+    font-size: 13px;
+    line-height: 1;
+  }
+
+  .submit-row {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    align-items: flex-start;
+    margin-top: 8px;
+  }
+
+  button[type="submit"] {
+    font-family: var(--font-ui);
+    font-weight: 700;
+    font-size: 17px;
+    letter-spacing: 0.04em;
+    color: #fff;
+    background: var(--gold);
+    border: none;
+    border-radius: 4px;
+    padding: 17px 40px;
+    cursor: pointer;
+    transition: background 0.15s ease;
+  }
+
+  button[type="submit"]:hover { background: #d97c25; }
+
+  button[type="submit"]:disabled { background: #b9bfc7; cursor: wait; }
+
+  .form-note {
+    font-family: var(--font-ui);
+    font-size: 12px;
+    line-height: 1.6;
+    color: var(--ink-soft);
+    text-align: left;
+  }
+
+  #status-region {
+    margin-top: 4px;
+    font-family: var(--font-ui);
+    font-size: 14px;
+    min-height: 1.4em;
+    text-align: left;
+  }
+
+  #status-region[data-state="ok"]   { color: var(--navy); }
+  #status-region[data-state="err"]  { color: var(--rose); }
+  #status-region[data-state="wait"] { color: var(--ink-soft); }
+
+  .seal {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    border: 0;
+    border-left: 4px solid var(--gold);
+    background: var(--ivory);
+    color: var(--navy);
+    border-radius: 0;
+    padding: 14px 20px;
+    font-family: var(--font-ui);
+    font-weight: 600;
+    font-size: 15px;
+    opacity: 0;
+    animation: seal-in 0.3s ease-out forwards;
+  }
+
+  .seal svg { width: 1.2em; height: 1.2em; color: var(--gold); }
+
+  @keyframes seal-in { to { opacity: 1; } }
+
+  @media (prefers-reduced-motion: reduce) {
+    .seal { animation: none; opacity: 1; }
+    button[type="submit"] { transition: none; }
+  }
+
+  footer {
+    width: 100vw;
+    margin-left: calc(50% - 50vw);
+    margin-top: 3em;
+    background: var(--navy);
+    color: #dfe5eb;
+    text-align: left;
+    font-size: 16px;
+    line-height: 1.8;
+  }
+
+  .footer-inner {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: clamp(30px, 6vw, 44px) clamp(16px, 4vw, 32px);
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(240px, 100%), 1fr));
+    gap: 28px;
+    align-items: start;
+  }
+
+  .footer-inner img {
+    width: 56px; height: 56px; object-fit: contain;
+    background: #FFFFFF; border-radius: 50%; padding: 4px;
+  }
+
+  .footer-brand { display: flex; gap: 14px; align-items: center; }
+
+  .footer-brand span {
+    font-family: var(--font-ui);
+    font-size: 15px;
+    font-weight: 600;
+    line-height: 1.45;
+    color: #FFFFFF;
+  }
+
+  footer p { margin: 0; }
+  footer code {
+    background: rgba(255, 255, 255, 0.12);
+    padding: 0.1em 0.35em;
+    border-radius: 3px;
+  }
+
+  #config-banner {
+    width: 100%;
+    max-width: 760px;
+    background: #fbeceb;
+    border: 1px solid var(--rose);
+    border-left: 4px solid var(--rose);
+    color: #6e2422;
+    border-radius: 0;
+    padding: 16px 20px;
+    font-family: var(--font-ui);
+    font-size: 14px;
+    line-height: 1.6;
+    margin-top: 24px;
+    display: none;
+  }
+
+  #config-banner.show { display: block; }
+
+
+  main { width: 100%; max-width: 760px; padding-top: 2.2em; }
+  .section-card { padding: 22px 26px 8px; }
+  table { width: 100%; border-collapse: collapse; }
+  th { font-family: var(--font-ui); font-size: 12px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-soft); text-align: left; padding: 6px 14px 12px 0; border-bottom: 2px solid var(--navy); }
+  td { font-size: 16px; line-height: 1.55; padding: 18px 14px 18px 0; border-bottom: 1px solid var(--rule); vertical-align: top; }
+  tr:last-child td { border-bottom: 0; }
+  td.feast { font-family: var(--font-ui); font-weight: 600; font-size: 16px; color: var(--navy); }
+  td.loading { color: var(--ink-soft); font-family: var(--font-ui); font-size: 14px; }
+  #schedule-status { font-family: var(--font-ui); font-size: 12px; letter-spacing: 0.06em; color: var(--ink-soft); margin: 14px 0 0; }
+  @media (max-width: 700px) {
+    .section-card { padding: 8px 18px; }
+    thead { display: none; }
+    tr { display: block; border-bottom: 1px solid var(--rule); padding: 16px 0; }
+    tr:last-child { border-bottom: 0; }
+    td { display: block; border: 0; padding: 3px 0; }
+    td::before { content: attr(data-label); display: block; font-family: var(--font-ui); font-size: 11px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-soft); margin-bottom: 2px; }
+    td.feast { font-size: 19px; padding-top: 6px; }
+    td.feast::before { display: none; }
+  }
+  @media print {
+    .topband, .sitebar, footer, .floral-divider { display: none; }
+    .section-card { border: 0; padding: 0; }
+  }
+</style>
+</head>
+<body>
+
+<div class="topband">
+  <div class="topband-inner">
+    <span>Roman Catholic Diocese of San Diego &nbsp;&middot;&nbsp; Office for Cultural Diversity</span>
+    <span><a href="tel:8584908306">(858) 490-8306</a></span>
+  </div>
+</div>
+
+<div class="sitebar">
+  <div class="sitebar-inner">
+    <a class="brand" href="../../index.html">
+      <img src="../../assets/Images/DCFC_LOGO.png" alt="Diocesan Commission for Filipino Catholics, San Diego">
+      <span>
+        <span class="brand-name">Diocesan Commission for Filipino Catholics</span>
+        <span class="brand-sub">Diocese of San Diego</span>
+      </span>
+    </a>
+    <a class="sitebar-link" href="../../index.html#documents">&larr; Documents &amp; Forms</a>
+  </div>
+</div>
+
+<header>
+  <p class="eyebrow">Diocesan Commission for Filipino Catholics</p>
+  <h1>Event Schedule</h1>
+  <p class="subtitle">
+    Host parishes and starting times for the observances of the Filipino
+    Community. Times are confirmed with each parish office.
+  </p>
+</header>
+
+<div class="floral-divider" aria-hidden="true"></div>
+
+<main>
+  <div class="section-card">
+    <table>
+      <thead>
+        <tr><th>Date</th><th>Observance</th><th>Host Parish</th><th>Times</th></tr>
+      </thead>
+      <tbody id="schedule-body">
+        <tr><td class="loading" colspan="4">Loading the diocesan calendar&hellip;</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p id="schedule-status" role="status" aria-live="polite"></p>
+</main>
+
+<div class="floral-divider" aria-hidden="true"></div>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <img src="../../assets/Images/DCFC_LOGO.png" alt="">
+      <span>Diocesan Commission<br>for Filipino Catholics</span>
+    </div>
+    <div>
+      <p>Parish coordinators may send corrections to <a href="mailto:adiaz@sdcatholic.org">adiaz@sdcatholic.org</a> or call <a href="tel:8584908306">(858) 490-8306</a>.</p>
+    </div>
+    <div>
+      <p>Roman Catholic Diocese of San Diego<br>3888 Paducah Drive<br>San Diego, CA 92117</p>
+    </div>
+  </div>
+</footer>
+
+<script type="module">
+  import { FIREBASE_CONFIG, FALLBACK_EVENTS, normalizeEvent } from "../../data/events.js";
+
+  const body = document.getElementById("schedule-body");
+  const status = document.getElementById("schedule-status");
+  const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+  let settled = false;
+
+  function render(rows, note) {
+    settled = true;
+    body.innerHTML = rows.map((e) =>
+      "<tr>" +
+        '<td data-label="Date">' + esc(e.date) + "</td>" +
+        '<td class="feast" data-label="Observance">' + esc(e.title) + "</td>" +
+        '<td data-label="Host Parish">' + esc(e.parish) + (e.address ? "<br>" + esc(e.address) : "") + "</td>" +
+        '<td data-label="Times">' + e.time.split(" \u00b7 ").map(esc).join("<br>") + "</td>" +
+      "</tr>"
+    ).join("") || '<tr><td class="loading" colspan="4">No celebrations are scheduled yet.</td></tr>';
+    status.textContent = note;
+  }
+
+  const standing = (why) => render(
+    FALLBACK_EVENTS.map((d, i) => normalizeEvent("standing-" + i, d)),
+    why + " \u2014 showing the standing schedule."
+  );
+
+  const timer = setTimeout(() => { if (!settled) standing("The live calendar could not be reached"); }, 9000);
+
+  try {
+    const [appMod, fs] = await Promise.all([
+      import("https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js"),
+      import("https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js")
+    ]);
+    const app = appMod.getApps().length ? appMod.getApp() : appMod.initializeApp(FIREBASE_CONFIG);
+    const db = fs.getFirestore(app);
+    fs.onSnapshot(fs.query(fs.collection(db, "events"), fs.orderBy("start", "asc")), (snap) => {
+      clearTimeout(timer);
+      const rows = [];
+      snap.forEach((doc) => { const d = doc.data() || {}; if (d.published !== false) rows.push(normalizeEvent(doc.id, d)); });
+      if (rows.length) render(rows, "Live from the Commission\u2019s diocesan calendar \u00b7 " + rows.length + (rows.length === 1 ? " celebration listed" : " celebrations listed"));
+      else standing("No celebrations have been published to the calendar yet");
+    }, () => { clearTimeout(timer); standing("The live calendar could not be reached"); });
+  } catch (err) {
+    clearTimeout(timer);
+    standing("The live calendar could not be reached");
+  }
+</script>
+
+</body>
+</html>

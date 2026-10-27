@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Site Instructions &mdash; Diocesan Commission for Filipino Catholics</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #112F45;
+    --orange: #EC8B33;
+    --ink: #22262b;
+    --muted: #4b535c;
+    --faint: #6c7480;
+    --rule: #e3e6ea;
+    --cream: #fbf8f4;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: #fff;
+    color: var(--ink);
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 18px;
+    line-height: 1.75;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: var(--orange); text-decoration: none; }
+  a:hover { color: var(--navy); text-decoration: underline; }
+  .bar {
+    background: var(--navy);
+    color: #fff;
+    font-family: Montserrat, sans-serif;
+    font-size: 13px;
+    letter-spacing: 0.04em;
+  }
+  .bar-inner, .wrap {
+    max-width: 940px;
+    margin: 0 auto;
+    padding: 0 clamp(16px, 4vw, 32px);
+  }
+  .bar-inner {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 24px;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .bar a { color: #fff; }
+  header.masthead { border-bottom: 1px solid var(--rule); }
+  .masthead-inner {
+    max-width: 940px;
+    margin: 0 auto;
+    padding: 18px clamp(16px, 4vw, 32px);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px 20px;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .brand { display: flex; gap: 14px; align-items: center; color: inherit; }
+  .brand:hover { text-decoration: none; }
+  .brand img { width: 60px; height: 60px; object-fit: contain; display: block; }
+  .brand b {
+    display: block;
+    font-family: Montserrat, sans-serif;
+    font-weight: 700;
+    font-size: 17px;
+    color: var(--navy);
+    letter-spacing: -0.01em;
+    line-height: 1.3;
+  }
+  .brand .sub {
+    display: block;
+    font-family: Montserrat, sans-serif;
+    font-weight: 500;
+    font-size: 12px;
+    color: var(--faint);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-top: 4px;
+  }
+  .backlink {
+    font-family: Montserrat, sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--navy);
+    border: 1px solid var(--navy);
+    border-radius: 4px;
+    padding: 11px 20px;
+  }
+  .backlink:hover { background: var(--navy); color: #fff; text-decoration: none; }
+  main { padding-bottom: 96px; }
+  .lede { padding-top: clamp(32px, 6vw, 52px); }
+  .kicker {
+    font-family: Montserrat, sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--orange);
+    margin: 0 0 16px;
+  }
+  h1 {
+    font-family: Montserrat, sans-serif;
+    font-size: clamp(36px, 5.4vw, 58px);
+    line-height: 1.05;
+    font-weight: 700;
+    color: var(--navy);
+    letter-spacing: -0.025em;
+    margin: 0;
+  }
+  .keyline { width: 72px; height: 4px; background: var(--orange); margin: 22px 0 26px; }
+  h2 {
+    font-family: Montserrat, sans-serif;
+    font-size: clamp(24px, 3.6vw, 32px);
+    line-height: 1.15;
+    font-weight: 700;
+    color: var(--navy);
+    letter-spacing: -0.015em;
+    margin: 56px 0 6px;
+    padding-top: 26px;
+    border-top: 2px solid var(--navy);
+  }
+  h3 {
+    font-family: Montserrat, sans-serif;
+    font-size: 19px;
+    font-weight: 700;
+    color: var(--navy);
+    letter-spacing: 0.01em;
+    margin: 34px 0 10px;
+  }
+  p { margin: 0 0 18px; text-wrap: pretty; }
+  ul, ol { margin: 0 0 18px; padding-left: 26px; }
+  li { margin-bottom: 10px; }
+  .note {
+    background: var(--cream);
+    border-left: 4px solid var(--orange);
+    padding: 20px 24px;
+    margin: 0 0 24px;
+  }
+  .note p:last-child, .note ul:last-child { margin-bottom: 0; }
+  code, kbd {
+    font-family: ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
+    font-size: 0.87em;
+    background: #f2f4f6;
+    border: 1px solid #e0e4e8;
+    border-radius: 3px;
+    padding: 1px 5px;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0 0 26px;
+    font-size: 16px;
+  }
+  th, td {
+    text-align: left;
+    vertical-align: top;
+    padding: 12px 14px;
+    border-bottom: 1px solid var(--rule);
+  }
+  thead th {
+    font-family: Montserrat, sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--navy);
+    border-bottom: 2px solid var(--navy);
+    white-space: nowrap;
+  }
+  td code { white-space: nowrap; }
+  .req {
+    font-family: Montserrat, sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--orange);
+  }
+  .opt {
+    font-family: Montserrat, sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--faint);
+  }
+  .codeblock { margin: 0 0 28px; border: 1px solid var(--rule); border-radius: 4px; overflow: hidden; }
+  .codebar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    align-items: center;
+    justify-content: space-between;
+    background: #f7f8fa;
+    border-bottom: 1px solid var(--rule);
+    padding: 10px 14px;
+  }
+  .codebar .label {
+    font-family: Montserrat, sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--faint);
+  }
+  .copybtn {
+    font-family: Montserrat, sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    color: #fff;
+    background: var(--orange);
+    border: 0;
+    border-radius: 4px;
+    padding: 9px 18px;
+    cursor: pointer;
+  }
+  .copybtn:hover { background: #d97c25; }
+  .copybtn[data-state="done"] { background: #1f7a4d; }
+  .copybtn[data-state="fail"] { background: #b3261e; }
+  pre {
+    margin: 0;
+    padding: 20px 22px;
+    background: #0d2637;
+    color: #e9eef3;
+    font-family: ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
+    font-size: 13.5px;
+    line-height: 1.65;
+    overflow-x: auto;
+    tab-size: 2;
+  }
+  pre code { background: none; border: 0; padding: 0; font-size: inherit; color: inherit; }
+  footer {
+    background: var(--navy);
+    color: #b9c4ce;
+    font-family: Montserrat, sans-serif;
+    font-size: 13px;
+    line-height: 1.8;
+  }
+  footer .wrap { padding-top: 34px; padding-bottom: 34px; }
+  footer a { color: var(--orange); }
+</style>
+</head>
+<body>
+
+<div class="bar">
+  <div class="bar-inner">
+    <span>Site &amp; Firestore Setup Guide &nbsp;&middot;&nbsp; For site administrators</span>
+    <a href="mailto:adiaz@sdcatholic.org">adiaz@sdcatholic.org</a>
+  </div>
+</div>
+
+<header class="masthead">
+  <div class="masthead-inner">
+    <a class="brand" href="index.html">
+      <img src="assets/Images/DCFC_LOGO.png" alt="Diocesan Commission for Filipino Catholics, San Diego">
+      <span>
+        <b>Diocesan Commission for Filipino Catholics</b>
+        <span class="sub">Diocese of San Diego</span>
+      </span>
+    </a>
+    <a class="backlink" href="index.html">&larr; Back to the site</a>
+  </div>
+</header>
+
+<main>
+<div class="wrap lede">
+  <p class="kicker">Administrator Documentation</p>
+  <h1>How this site works</h1>
+  <div class="keyline"></div>
+  <p>This guide covers what the site is, how the files fit together, and exactly how to set up the Google&nbsp;/&nbsp;Firebase configuration so the <strong>Events</strong> schedule pulls live from a database instead of being edited in code. Everything here can be done from a web browser &mdash; no software to install.</p>
+  <div class="note">
+    <p><strong>The short version.</strong> Add event documents to the <code>events</code> collection in the Firebase console. The site picks them up within a second or two, with no redeploy. If the database is empty or unreachable, the site quietly falls back to a built-in schedule so visitors never see a broken page.</p>
+  </div>
+</div>
+
+<div class="wrap">
+  <h2>1. What this site is</h2>
+  <p>A public information site for the <strong>Diocesan Commission for Filipino Catholics</strong> of the Roman Catholic Diocese of San Diego. It presents the Commission&rsquo;s identity and mission, its annual liturgical celebrations, photographs and recordings of community life, downloadable documents and registration forms, and contact details for its officers.</p>
+  <p>It is a static site &mdash; plain HTML files hosted on GitHub Pages. There is no server to maintain and no hosting bill. The only moving part is the events database described below.</p>
+
+  <h3>Pages</h3>
+  <table>
+    <thead>
+      <tr><th>File</th><th>What it is</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><code>index.html</code></td><td>The whole public site. Home (hero, Who We Are, Events, Photos, Videos, Contacts, message form) plus the Documents&nbsp;&amp;&nbsp;Forms view, which swaps in without a page load.</td></tr>
+      <tr><td><code>instructions.html</code></td><td>This guide. Listed in <code>.gitignore</code>, so it stays on your computer and is never published with the site.</td></tr>
+      <tr><td><code>.gitignore</code></td><td>Keeps this guide and operating-system clutter out of the repository.</td></tr>
+      <tr><td><code>support.js</code></td><td>Runtime that renders <code>index.html</code>. Do not edit or delete it.</td></tr>
+      <tr><td><code>data/</code></td><td>Reserved for site data files.</td></tr>
+      <tr><td><code>assets/Images/</code></td><td>Logo, banner, and hero photograph.</td></tr>
+      <tr><td><code>files/Documents/</code></td><td>Published PDFs and the event schedule page listed under Documents.</td></tr>
+      <tr><td><code>files/Forms/</code></td><td>The Santacruzan and Host Parish registration forms, which open in their own tab.</td></tr>
+    </tbody>
+  </table>
+
+  <h3>How the Events section behaves</h3>
+  <ul>
+    <li><strong>Next Celebration</strong> &mdash; the card beside the Events heading. It is <em>not</em> hand-written; the site picks the soonest event whose date has not yet passed and shows it. A celebration disappears from the card automatically about six hours after it begins.</li>
+    <li><strong>Diocesan Event Schedule</strong> &mdash; the grid revealed by the <em>View Schedule</em> button, listing every published event in date order.</li>
+    <li><strong>Status line</strong> &mdash; a small line beneath the grid says whether the list came from the live calendar or from the built-in fallback. Use it to confirm your setup is working.</li>
+    <li><strong>Sign in</strong> &mdash; at the top right of every page, beside the navigation, showing an anonymous avatar until someone signs in and their Google profile picture afterwards, with the label switching to <em>Sign out</em>. Visitors can ignore it; staff on the allow list sign in there and get a form under Events to add, edit, and delete celebrations directly on the page.</li>
+  </ul>
+  <p>Nothing about the editing interface is trusted for security. It only decides what to <em>show</em>; the Firestore rules decide what is allowed. Somebody who edited the page in their own browser to reveal the form would still have every save refused.</p>
+
+  <h2>2. Set up Firebase Firestore</h2>
+  <p>The site is already pointed at the Firebase project <code>dcfc-data</code>. These steps create the database it reads from. Do them once.</p>
+
+  <h3>Step 1 &mdash; Create the database</h3>
+  <ol>
+    <li>Go to <a href="https://console.firebase.google.com/" target="_blank" rel="noopener">console.firebase.google.com</a> and sign in with the Google account that owns the project.</li>
+    <li>Open the <strong>dcfc-data</strong> project.</li>
+    <li>In the left sidebar choose <strong>Build &rarr; Firestore Database</strong>, then <strong>Create database</strong>.</li>
+    <li>Choose <strong>Start in production mode</strong>. (You will paste proper rules in Step 2, so test mode is unnecessary and expires after 30 days.)</li>
+    <li>For location choose <strong>nam5 (us-central)</strong> or <code>us-west2</code>. This cannot be changed later, but either is fine for a San Diego audience.</li>
+    <li>Click <strong>Create</strong> and wait for provisioning to finish.</li>
+  </ol>
+
+  <h3>Step 2 &mdash; Publish the security rules</h3>
+  <p>Rules decide who may read and write, and they are the <em>only</em> real protection on your data &mdash; the allow list inside <code>index.html</code> merely controls what the interface offers. Both must list the same people.</p>
+  <p>These rules allow <strong>anyone to read events</strong> (the site is public) but permit <strong>writes only from a signed-in Google account whose user ID appears in the allow list</strong>, and close off every other collection. In Firestore, open the <strong>Rules</strong> tab, select all the existing text, paste this over it, and click <strong>Publish</strong>.</p>
+
+  <div class="codeblock">
+    <div class="codebar">
+      <span class="label">Firestore security rules</span>
+      <button type="button" class="copybtn" id="copy-rules" data-target="rules-code">Copy rules</button>
+    </div>
+<pre id="rules-code"><code>rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // ---------------------------------------------------------------
+    // ADMINISTRATOR ALLOW LIST
+    // Paste each administrator's Firebase UID between the quotes.
+    // Add or remove lines as people join and leave the Commission.
+    // The SAME list must also appear in adminUids in index.html.
+    // ---------------------------------------------------------------
+    function admins() {
+      return [
+        "29fwr8BEMIMpA8a3wlT3cPLLIts1",
+        "XLj2RJN2hIWEHboGzIl2uFSLpiU2"
+      ];
+    }
+
+    function isAdmin() {
+      return request.auth != null
+          && request.auth.uid in admins()
+          && request.auth.token.email_verified == true;
+    }
+
+    // Events shown in the public schedule.
+    // Anyone may read. Only an administrator on the list may change them.
+    match /events/{eventId} {
+      allow read: if true;
+      allow create, update, delete: if isAdmin();
+    }
+
+    // Site settings, e.g. the Santacruzan registration open/close dates.
+    // Anyone may read. Only an administrator on the list may change them.
+    match /settings/{settingId} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    // Everything else is closed until it is explicitly opened.
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}</code></pre>
+  </div>
+
+  <div class="note">
+    <p><strong>The two IDs above are the current administrators</strong> and match <code>adminUids</code> in <code>index.html</code>. Publish as written. Step&nbsp;4 explains how to obtain an ID for anyone you add later &mdash; it goes in both lists.</p>
+  </div>
+
+  <div class="note">
+    <p><strong>Why the API key in the site is safe to publish.</strong> A Firebase web API key is an identifier, not a password &mdash; it appears in the source of every Firebase site on the web. Your data is protected by the rules above, which is why they matter and why the catch-all deny is there.</p>
+  </div>
+
+  <h3>Step 3 &mdash; Turn on Google sign-in</h3>
+  <ol>
+    <li>In the Firebase console, go to <strong>Build &rarr; Authentication</strong> and click <strong>Get started</strong>.</li>
+    <li>On the <strong>Sign-in method</strong> tab choose <strong>Google</strong> from the provider list.</li>
+    <li>Switch it to <strong>Enable</strong>, pick a support email, and click <strong>Save</strong>. No other provider is needed &mdash; administrators sign in with their Gmail or Google Workspace account.</li>
+    <li>Open the <strong>Settings</strong> tab, then <strong>Authorized domains</strong>. Add your GitHub Pages hostname, e.g. <code>yourname.github.io</code>, plus any custom domain. <code>localhost</code> is already there for testing.</li>
+  </ol>
+  <div class="note">
+    <p>If you skip the Authorized domains step, sign-in fails with &ldquo;This web address is not on the Authorized domains list&rdquo; &mdash; the site reports this on screen.</p>
+  </div>
+
+  <h3>Step 4 &mdash; Add administrators to the allow list</h3>
+  <p>Each administrator&rsquo;s Firebase <strong>UID</strong> is a unique identifier generated the first time they sign in. You cannot invent it or look it up in advance &mdash; they must sign in once so the site can show it to them.</p>
+  <ol>
+    <li>Have the administrator open the site and click <strong>Sign in</strong> at the top right.</li>
+    <li>They sign in with their Google account. Because their ID is not on the list yet, the site says <em>Not yet authorized</em> and displays their user ID with a <strong>Copy my ID</strong> button.</li>
+    <li>They send you that ID. Paste it into <strong>both</strong> places:
+      <ul>
+        <li><strong>Firestore rules</strong> &mdash; replace a <code>PASTE_..._UID_HERE</code> placeholder inside <code>admins()</code>, then <strong>Publish</strong>. This is what actually grants access.</li>
+        <li><strong><code>index.html</code></strong> &mdash; find <code>adminUids</code> near the top of the script at the bottom of the file and add the ID as a quoted string, e.g. <code>"abc123XYZ",</code>. Remove the leading <code>//</code> from the sample line. This is what reveals the editing interface. Commit and push.</li>
+      </ul>
+    </li>
+    <li>The administrator signs out and back in. They now see <strong>Calendar Administration</strong> with the event form and the list of published celebrations.</li>
+  </ol>
+  <div class="note">
+    <p><strong>Both lists, every time.</strong> In the rules only &rarr; they can write but see no interface. In <code>index.html</code> only &rarr; they see the form but every save is refused with a permissions error. To revoke access, remove the ID from both and publish; that person is locked out immediately, regardless of what is cached in their browser.</p>
+  </div>
+
+  <h3>Step 5 &mdash; Create the <code>events</code> collection</h3>
+  <ol>
+    <li>In Firestore, open the <strong>Data</strong> tab and click <strong>Start collection</strong>.</li>
+    <li>Set the Collection ID to exactly <code>events</code> &mdash; lower case, plural.</li>
+    <li>Firestore will ask for a first document. Click <strong>Auto-ID</strong> for the Document ID and add the fields from the table below.</li>
+    <li>Click <strong>Save</strong>, then reload the public site and open <em>View Schedule</em>. Your event should appear and the status line should read &ldquo;Live from the Commission&rsquo;s diocesan calendar.&rdquo;</li>
+  </ol>
+
+  <h3>Event fields</h3>
+  <table>
+    <thead>
+      <tr><th>Field</th><th>Type</th><th>Meaning</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><code>title</code> <span class="req">required</span></td>
+        <td>string</td>
+        <td>Name of the celebration, e.g. <em>Feast of San Lorenzo Ruiz</em>.</td>
+      </tr>
+      <tr>
+        <td><code>start</code> <span class="req">required</span></td>
+        <td>timestamp</td>
+        <td>Date and time it begins. This is what the site sorts by and what makes an event count as upcoming or past, so it must be a real <strong>timestamp</strong>, not a string.</td>
+      </tr>
+      <tr>
+        <td><code>parish</code> <span class="opt">recommended</span></td>
+        <td>string</td>
+        <td>Host parish, e.g. <em>St. Mary Church, National City</em>.</td>
+      </tr>
+      <tr>
+        <td><code>address</code> <span class="opt">optional</span></td>
+        <td>string</td>
+        <td>Street address. Omitted from the card when blank.</td>
+      </tr>
+      <tr>
+        <td><code>time</code> <span class="opt">recommended</span></td>
+        <td>string</td>
+        <td>Human-readable schedule of the day, e.g. <em>9:15&nbsp;AM rosary &middot; 10:00&nbsp;AM Mass</em>. Written out rather than derived, so processions and multiple Masses read naturally.</td>
+      </tr>
+      <tr>
+        <td><code>detail</code> <span class="opt">optional</span></td>
+        <td>string</td>
+        <td>Celebrant, guest speaker, notes to parish delegations. Shown as a footnote on the card.</td>
+      </tr>
+      <tr>
+        <td><code>end</code> <span class="opt">optional</span></td>
+        <td>timestamp</td>
+        <td>Only for multi-day observances such as Simbang Gabi. When present, the date reads as a range and the event stays &ldquo;upcoming&rdquo; until the last day.</td>
+      </tr>
+      <tr>
+        <td><code>dateLabel</code> <span class="opt">optional</span></td>
+        <td>string</td>
+        <td>Overrides the automatically formatted date with your own wording, e.g. <em>Nine dawn Masses, December 15&ndash;23</em>. Leave it off unless the automatic label reads badly.</td>
+      </tr>
+      <tr>
+        <td><code>published</code> <span class="opt">optional</span></td>
+        <td>boolean</td>
+        <td>Set to <code>false</code> to draft an event without showing it publicly. Anything else, or absent, is treated as published.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="note">
+    <p><strong>Entering a timestamp.</strong> In the Firebase console, choose <code>timestamp</code> as the field type and a date-and-time picker appears. Set the time to when the celebration actually begins &mdash; the procession or first Mass &mdash; because that is what orders the schedule.</p>
+  </div>
+
+  <h3>Step 6 &mdash; Add the rest of the year</h3>
+  <p>Once you are on the allow list, the quickest way to work is on the site itself: sign in, fill in the form under <strong>Events</strong>, and click <strong>Add to calendar</strong>. Each entry in the <em>Published calendar</em> list beside it has <strong>Edit</strong> and <strong>Delete</strong>. Changes appear for every visitor immediately, with no republishing.</p>
+  <p>The Firebase console remains available for the same job and is the better place for bulk work. Order does not matter either way; the site sorts by <code>start</code>.</p>
+  <p>Untick <strong>Visible on the public schedule</strong> to draft an event that only administrators can see &mdash; useful while a host parish or celebrant is unconfirmed.</p>
+  <div class="note">
+    <p><strong>The Host parish field suggests churches as you type.</strong> It holds 107 churches of the diocese &mdash; parishes and missions together; type a few letters of the name or the city, then click a suggestion or use the arrow keys and <kbd>Enter</kbd>. Selecting one fills in the <strong>Address</strong> field for you. Both fields stay editable &mdash; overwrite them for a venue that is not a parish, or to add a suite number or ZIP. A handful of missions have no street address on file, so the address arrives as city only; type the rest. The list lives in <code>parishes</code> near the top of the script in <code>index.html</code> if a parish moves or is renamed.</p>
+  </div>
+  <div class="note">
+    <p><strong>About that roster.</strong> The diocese publishes a count of <strong>96 parishes and 13 missions</strong>, but does not publish a single machine-readable list of them; this one was compiled from the diocesan parish directory and comes to 107 entries, without marking which are parishes and which are missions. It is close but not authoritative. If an administrator reports a missing church, add a line to <code>parishes</code> &mdash; <code>["Name", "City", "Street"]</code> &mdash; and reconcile against <a href="https://sdcatholic.org/find-a-parish/" target="_blank" rel="noopener">sdcatholic.org/find-a-parish</a>.</p>
+  </div>
+
+  <h2>3. Hosting on GitHub Pages</h2>
+  <ol>
+    <li>Commit every file &mdash; <code>index.html</code>, <code>support.js</code>, and the whole <code>Assets</code> folder &mdash; to the repository root. This guide is deliberately excluded by <code>.gitignore</code>; keep a copy somewhere your successors will find it.</li>
+    <li>In the repository, open <strong>Settings &rarr; Pages</strong>.</li>
+    <li>Under <strong>Source</strong>, choose <strong>Deploy from a branch</strong>, then branch <code>main</code> and folder <code>/ (root)</code>. Save.</li>
+    <li>Wait a minute, then visit the URL GitHub shows. Because the home page is named <code>index.html</code>, it loads at the bare address with nothing after the slash.</li>
+  </ol>
+  <div class="note">
+    <p><strong>Two things that will bite you.</strong> File names are case-sensitive on GitHub Pages but not on a Mac &mdash; <code>assets/Images/DCFC_LOGO.png</code> must match exactly. And if you ever add a folder beginning with an underscore, add an empty <code>.nojekyll</code> file at the root so GitHub does not skip it.</p>
+  </div>
+
+  <h2>4. Documents and forms</h2>
+  <p>The Documents&nbsp;&amp;&nbsp;Forms view lists files by hand, in <code>index.html</code>. To publish a new flyer or guideline:</p>
+  <ol>
+    <li>Add the PDF to <code>files/Documents/</code>.</li>
+    <li>Open <code>index.html</code> and find the <code>groupDefs</code> list near the bottom of the file, then the section for the right observance (<code>featuredItems</code>, just above it, holds the Event Schedule and Host Parish Registration).</li>
+    <li>Copy an existing entry and change its <code>title</code>, <code>description</code>, <code>meta</code>, and <code>href</code>. The <code>href</code> is the path to your file, e.g. <code>files/Documents/YourFlyer.pdf</code>.</li>
+    <li>Set <code>kind</code> to <code>"doc"</code> for a document or <code>"form"</code> for a form, then commit. A section with no items shows &ldquo;Nothing posted yet&rdquo;.</li>
+  </ol>
+  <p>The Santacruzan registration form expects a Google Apps Script endpoint to receive submissions. If it shows a setup banner, open <code>files/Forms/santacruzan-registration.html</code>, find <code>SCRIPT_URL</code> near the bottom, and paste in the Web App URL of your deployed Apps Script &mdash; created from a Google Sheet via <strong>Extensions &rarr; Apps Script</strong>, then <strong>Deploy &rarr; New deployment &rarr; Web app</strong>, with access set to <em>Anyone</em>.</p>
+
+  <h2>5. If something looks wrong</h2>
+  <table>
+    <thead>
+      <tr><th>Symptom</th><th>Cause and fix</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Status line says the live calendar could not be reached, with <code>permission-denied</code></td>
+        <td>The security rules were not published, or the read rule is missing. Redo Step&nbsp;2.</td>
+      </tr>
+      <tr>
+        <td>Status line says nothing has been published yet</td>
+        <td>The <code>events</code> collection is missing, misspelled, or every document has <code>published: false</code>. Collection names are case-sensitive.</td>
+      </tr>
+      <tr>
+        <td>Status line says the live calendar has not been set up yet</td>
+        <td>The site reached out but got no answer within nine seconds &mdash; almost always because the Firestore database itself has not been created. Do Step&nbsp;1, then Steps&nbsp;2 and&nbsp;3.</td>
+      </tr>
+      <tr>
+        <td>An event is missing or out of order</td>
+        <td>Its <code>start</code> field is a string rather than a timestamp. Delete the field and re-add it with type <code>timestamp</code>.</td>
+      </tr>
+      <tr>
+        <td>Next Celebration shows a past event</td>
+        <td>Every event&rsquo;s date has passed. Add the coming year&rsquo;s celebrations; the card then advances on its own.</td>
+      </tr>
+      <tr>
+        <td>Sign-in window opens then closes with an error</td>
+        <td>Google sign-in is not enabled (Step&nbsp;3), or the site&rsquo;s address is missing from <strong>Authentication &rarr; Settings &rarr; Authorized domains</strong>. The on-screen message names which.</td>
+      </tr>
+      <tr>
+        <td>Signed in, but no editing interface appears</td>
+        <td>The user ID is not in <code>adminUids</code> in <code>index.html</code>, or the change was not pushed to GitHub. Sign out and back in after pushing.</td>
+      </tr>
+      <tr>
+        <td>Saving an event fails with a permissions error</td>
+        <td>The user ID is in <code>index.html</code> but not in the <code>admins()</code> list in the Firestore rules &mdash; or the rules were edited but not published.</td>
+      </tr>
+      <tr>
+        <td>Nothing happens when clicking Sign in</td>
+        <td>The browser blocked the pop-up window. Allow pop-ups for the site and try again.</td>
+      </tr>
+      <tr>
+        <td>The date reads awkwardly</td>
+        <td>Add a <code>dateLabel</code> with the exact wording you want.</td>
+      </tr>
+      <tr>
+        <td>Images or the schedule fail only on the live site</td>
+        <td>Almost always a file-name capitalization mismatch. Compare the path in <code>index.html</code> against the file in the repository, character for character.</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p>Roman Catholic Diocese of San Diego &nbsp;&middot;&nbsp; Office for Cultural Diversity<br>
+    3888 Paducah Drive, San Diego, CA 92117 &nbsp;&middot;&nbsp; <a href="tel:8584908306">(858) 490-8306</a> &nbsp;&middot;&nbsp; <a href="mailto:adiaz@sdcatholic.org">adiaz@sdcatholic.org</a></p>
+    <p style="margin:0"><a href="index.html">Return to the site</a></p>
+  </div>
+</footer>
+
+<script>
+document.querySelectorAll('.copybtn').forEach(function (btn) {
+  var original = btn.textContent;
+  btn.addEventListener('click', function () {
+    var src = document.getElementById(btn.getAttribute('data-target'));
+    if (!src) return;
+    var text = src.innerText.replace(/\s+$/, '');
+    var done = function () {
+      btn.textContent = 'Copied';
+      btn.setAttribute('data-state', 'done');
+      setTimeout(function () {
+        btn.textContent = original;
+        btn.removeAttribute('data-state');
+      }, 2000);
+    };
+    var fallback = function () {
+      var ta = document.createElement('textarea');
+      ta.value = text;
+      ta.setAttribute('readonly', '');
+      ta.style.position = 'fixed';
+      ta.style.top = '-1000px';
+      document.body.appendChild(ta);
+      ta.select();
+      var ok = false;
+      try { ok = document.execCommand('copy'); } catch (e) { ok = false; }
+      document.body.removeChild(ta);
+      if (ok) { done(); return; }
+      btn.textContent = 'Press \u2318C';
+      btn.setAttribute('data-state', 'fail');
+      var range = document.createRange();
+      range.selectNodeContents(src);
+      var sel = window.getSelection();
+      sel.removeAllRanges();
+      sel.addRange(range);
+      setTimeout(function () {
+        btn.textContent = original;
+        btn.removeAttribute('data-state');
+      }, 3000);
+    };
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(done, fallback);
+    } else {
+      fallback();
+    }
+  });
+});
+</script>
+</body>
+</html>

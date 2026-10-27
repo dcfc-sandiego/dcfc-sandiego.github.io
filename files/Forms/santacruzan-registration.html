@@ -1,0 +1,1304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Santacruzan Registration</title>
+<meta name="description" content="Register Reynas, Escorts, and Angels for the 2027 Santacruzan procession.">
+
+<!--
+  =========================================================================
+  SANTACRUZAN 2027 -- PARTICIPANT REGISTRATION FORM
+  =========================================================================
+  Self-contained HTML + CSS + JS. Submits to a Google Apps Script Web App,
+  which appends one row per participant to a Google Sheet.
+
+  >>> BEFORE THIS WORKS, EDIT THE LINE BELOW <<<
+  Find: const SCRIPT_URL = "PASTE_YOUR_APPS_SCRIPT_WEB_APP_URL_HERE";
+  Full setup steps are in instructions.html and README.md.
+  =========================================================================
+-->
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy:       #112F45;
+    --navy-deep:  #0d2637;
+    --gold:       #EC8B33;
+    --gold-soft:  #f2d3ae;
+    --ivory:      #fbf8f4;
+    --card:       #FFFFFF;
+    --rose:       #D52E2B;
+    --ink:        #22262b;
+    --ink-soft:   #6c7480;
+    --rule:       #e3e6ea;
+    --shadow:     rgba(17, 47, 69, 0.14);
+    --font-display: Montserrat, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    --font-body:    'Times New Roman', Times, serif;
+    --font-ui:      Montserrat, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  }
+
+  * { box-sizing: border-box; }
+
+  html, body {
+    margin: 0;
+    padding: 0;
+    background: #FFFFFF;
+    color: var(--ink);
+    font-family: var(--font-body);
+    -webkit-font-smoothing: antialiased;
+    -webkit-text-size-adjust: 100%;
+    line-height: 1.6;
+  }
+
+  body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0 clamp(16px, 4vw, 32px) 4em;
+  }
+
+  a { color: var(--gold); text-decoration: none; }
+  a:hover { color: var(--navy); text-decoration: underline; }
+
+  .topband {
+    width: 100vw;
+    margin-left: calc(50% - 50vw);
+    background: var(--navy);
+    color: #FFFFFF;
+    height: auto;
+    font-family: var(--font-ui);
+    font-size: 13px;
+    letter-spacing: 0.04em;
+  }
+
+  .topband-inner {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 10px clamp(16px, 4vw, 32px);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 24px;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .topband a { color: #FFFFFF; }
+  .topband a:hover { color: var(--gold); text-decoration: none; }
+
+  @media (max-width: 720px) {
+    .topband { display: none; }
+  }
+
+  .sitebar {
+    width: 100vw;
+    margin-left: calc(50% - 50vw);
+    border-bottom: 1px solid var(--rule);
+    background: #FFFFFF;
+  }
+
+  .sitebar-inner {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 16px clamp(16px, 4vw, 32px);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px 24px;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .brand { display: flex; gap: 14px; align-items: center; color: inherit; }
+  .brand:hover { text-decoration: none; }
+  .brand img { width: clamp(48px, 10vw, 64px); height: clamp(48px, 10vw, 64px); object-fit: contain; flex: 0 0 auto; }
+  .brand-name {
+    display: block;
+    font-family: var(--font-ui);
+    font-weight: 700;
+    font-size: clamp(14px, 2.6vw, 17px);
+    color: var(--navy);
+    letter-spacing: -0.01em;
+    line-height: 1.25;
+  }
+  .brand-sub {
+    display: block;
+    font-family: var(--font-ui);
+    font-weight: 500;
+    font-size: 12px;
+    color: var(--ink-soft);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-top: 5px;
+  }
+  .sitebar-link {
+    font-family: var(--font-ui);
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--navy);
+  }
+  .sitebar-link:hover { color: var(--gold); text-decoration: none; }
+
+  .floral-divider {
+    display: block;
+    width: 100%;
+    max-width: 760px;
+    height: 1px;
+    background: var(--rule);
+    margin: 2.4em 0 0;
+  }
+  .floral-divider .fl-line, .floral-divider .fl-icon { display: none; }
+
+  header {
+    width: 100%;
+    max-width: 760px;
+    text-align: left;
+    padding-top: clamp(36px, 7vw, 56px);
+  }
+
+  .eyebrow {
+    font-family: var(--font-ui);
+    font-weight: 600;
+    font-size: 13px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin: 0 0 18px;
+  }
+
+  h1 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: clamp(34px, 5.4vw, 56px);
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    margin: 0 0 22px;
+    color: var(--navy);
+  }
+
+  h1 + .subtitle { position: relative; padding-top: 26px; }
+  h1 + .subtitle::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0;
+    width: 72px; height: 4px;
+    background: var(--gold);
+  }
+
+  .subtitle {
+    font-size: 20px;
+    line-height: 1.7;
+    color: #3b424a;
+    max-width: 60ch;
+    margin: 0 0 22px;
+    text-wrap: pretty;
+  }
+
+  .deadline-badge {
+    display: inline-block;
+    background: var(--ivory);
+    border: 0;
+    border-left: 4px solid var(--gold);
+    border-radius: 0;
+    padding: 16px 22px;
+    font-family: var(--font-body);
+    font-size: 17px;
+    line-height: 1.6;
+    color: var(--navy);
+    box-shadow: none;
+  }
+
+  .deadline-badge strong { color: var(--navy); }
+
+  form { width: 100%; max-width: 760px; padding-top: 2.2em; }
+
+  fieldset { border: none; margin: 0 0 28px; padding: 0; }
+
+  .section-card {
+    background: var(--card);
+    border: 1px solid var(--rule);
+    border-top: 4px solid var(--navy);
+    border-radius: 4px;
+    box-shadow: none;
+    padding: 28px 26px;
+  }
+
+  .section-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 6px 16px;
+    margin-bottom: 4px;
+  }
+
+  .section-title {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: clamp(22px, 3.2vw, 28px);
+    letter-spacing: -0.015em;
+    color: var(--navy);
+    margin: 0;
+  }
+
+  .section-tag {
+    font-family: var(--font-ui);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    font-style: normal;
+    color: var(--gold);
+  }
+
+  .section-note {
+    font-size: 17px;
+    line-height: 1.65;
+    color: #4b535c;
+    margin: 8px 0 24px;
+  }
+
+  .field { margin-bottom: 20px; }
+
+  .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+
+  label {
+    display: block;
+    font-family: var(--font-ui);
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    color: var(--navy);
+    margin-bottom: 8px;
+  }
+
+  .req { color: var(--rose); margin-left: 0.15em; }
+
+  input[type="text"],
+  input[type="email"],
+  input[type="tel"],
+  textarea {
+    width: 100%;
+    font-family: var(--font-body);
+    font-size: 17px;
+    color: var(--ink);
+    background: #FFFFFF;
+    border: 1px solid #808080;
+    border-radius: 0;
+    padding: 12px 12px;
+    outline: none;
+    transition: border-color 0.15s ease;
+  }
+
+  textarea { resize: vertical; min-height: 4em; line-height: 1.6; }
+
+  input:focus, textarea:focus { border-color: var(--gold); }
+
+  input:focus-visible, textarea:focus-visible, button:focus-visible {
+    outline: 2px solid var(--gold);
+    outline-offset: 0;
+  }
+
+  .hp-field {
+    position: absolute !important;
+    left: -9999px !important;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+  }
+
+  .cards-container { display: flex; flex-direction: column; gap: 16px; }
+  .cards-container:empty { display: none; }
+
+  .participant-card {
+    border: 1px solid var(--rule);
+    border-left: 4px solid var(--gold);
+    border-radius: 0;
+    padding: 22px 22px 24px;
+    background: var(--ivory);
+  }
+
+  .card-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 18px;
+  }
+
+  .card-tag {
+    font-family: var(--font-ui);
+    font-weight: 700;
+    font-size: 12px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--navy);
+  }
+
+  .remove-card {
+    background: transparent;
+    border: 1px solid #cfd5db;
+    color: var(--navy);
+    width: 30px;
+    height: 30px;
+    border-radius: 4px;
+    font-size: 16px;
+    line-height: 1;
+    cursor: pointer;
+    font-family: var(--font-ui);
+  }
+
+  .remove-card:hover { background: var(--navy); border-color: var(--navy); color: #FFFFFF; }
+
+
+  .minor-toggle, .consent-check {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-family: var(--font-body);
+    font-size: 17px;
+    line-height: 1.55;
+    color: var(--ink);
+    margin-top: 10px;
+    cursor: pointer;
+    letter-spacing: 0;
+    font-weight: 400;
+    text-transform: none;
+  }
+
+  .minor-toggle input, .consent-check input {
+    margin-top: 5px;
+    flex-shrink: 0;
+    width: 17px;
+    height: 17px;
+    accent-color: var(--gold);
+  }
+
+  .guardian-panel {
+    margin-top: 18px;
+    padding: 20px 20px 4px;
+    border: 1px solid var(--rule);
+    border-radius: 0;
+    background: #FFFFFF;
+  }
+
+  .guardian-note {
+    font-size: 16px;
+    line-height: 1.6;
+    color: var(--ink-soft);
+    margin: 0 0 18px;
+  }
+
+  .consent-check { margin: 16px 0 8px; }
+
+  .add-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: transparent;
+    border: 1px solid var(--navy);
+    color: var(--navy);
+    font-family: var(--font-ui);
+    font-weight: 600;
+    font-size: 14px;
+    padding: 12px 22px;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 20px;
+  }
+
+  .add-btn:hover { background: var(--navy); color: #FFFFFF; }
+  .add-btn:hover .plus { background: #FFFFFF; color: var(--navy); }
+
+  .add-btn .plus {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: var(--gold);
+    color: #fff;
+    font-size: 13px;
+    line-height: 1;
+  }
+
+  .submit-row {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    align-items: flex-start;
+    margin-top: 8px;
+  }
+
+  button[type="submit"] {
+    font-family: var(--font-ui);
+    font-weight: 700;
+    font-size: 17px;
+    letter-spacing: 0.04em;
+    color: #fff;
+    background: var(--gold);
+    border: none;
+    border-radius: 4px;
+    padding: 17px 40px;
+    cursor: pointer;
+    transition: background 0.15s ease;
+  }
+
+  button[type="submit"]:hover { background: #d97c25; }
+
+  button[type="submit"]:disabled { background: #b9bfc7; cursor: wait; }
+
+  .form-note {
+    font-family: var(--font-ui);
+    font-size: 12px;
+    line-height: 1.6;
+    color: var(--ink-soft);
+    text-align: left;
+  }
+
+  #status-region {
+    margin-top: 4px;
+    font-family: var(--font-ui);
+    font-size: 14px;
+    min-height: 1.4em;
+    text-align: left;
+  }
+
+  #status-region[data-state="ok"]   { color: var(--navy); }
+  #status-region[data-state="err"]  { color: var(--rose); }
+  #status-region[data-state="wait"] { color: var(--ink-soft); }
+
+  .seal {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    border: 0;
+    border-left: 4px solid var(--gold);
+    background: var(--ivory);
+    color: var(--navy);
+    border-radius: 0;
+    padding: 14px 20px;
+    font-family: var(--font-ui);
+    font-weight: 600;
+    font-size: 15px;
+    opacity: 0;
+    animation: seal-in 0.3s ease-out forwards;
+  }
+
+  .seal svg { width: 1.2em; height: 1.2em; color: var(--gold); }
+
+  @keyframes seal-in { to { opacity: 1; } }
+
+  @media (prefers-reduced-motion: reduce) {
+    .seal { animation: none; opacity: 1; }
+    button[type="submit"] { transition: none; }
+  }
+
+  footer {
+    width: 100vw;
+    margin-left: calc(50% - 50vw);
+    margin-top: 3em;
+    background: var(--navy);
+    color: #dfe5eb;
+    text-align: left;
+    font-size: 16px;
+    line-height: 1.8;
+  }
+
+  .footer-inner {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: clamp(30px, 6vw, 44px) clamp(16px, 4vw, 32px);
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(240px, 100%), 1fr));
+    gap: 28px;
+    align-items: start;
+  }
+
+  .footer-inner img {
+    width: 56px; height: 56px; object-fit: contain;
+    background: #FFFFFF; border-radius: 50%; padding: 4px;
+  }
+
+  .footer-brand { display: flex; gap: 14px; align-items: center; }
+
+  .footer-brand span {
+    font-family: var(--font-ui);
+    font-size: 15px;
+    font-weight: 600;
+    line-height: 1.45;
+    color: #FFFFFF;
+  }
+
+  footer p { margin: 0; }
+  footer code {
+    background: rgba(255, 255, 255, 0.12);
+    padding: 0.1em 0.35em;
+    border-radius: 3px;
+  }
+
+  #config-banner {
+    width: 100%;
+    max-width: 760px;
+    background: #fbeceb;
+    border: 1px solid var(--rose);
+    border-left: 4px solid var(--rose);
+    color: #6e2422;
+    border-radius: 0;
+    padding: 16px 20px;
+    font-family: var(--font-ui);
+    font-size: 14px;
+    line-height: 1.6;
+    margin-top: 24px;
+    display: none;
+  }
+
+  #config-banner.show { display: block; }
+
+  .gate-panel {
+    width: 100%;
+    max-width: 760px;
+    margin-top: 2.2em;
+    border: 1px solid var(--rule);
+    border-top: 4px solid var(--navy);
+    border-radius: 4px;
+    padding: 28px 26px;
+    background: var(--card);
+  }
+  .gate-panel[hidden], form[hidden] { display: none; }
+  .gate-panel h2 { margin: 0 0 10px; }
+  .gate-panel p { font-size: 17px; line-height: 1.65; color: #4b535c; margin: 0; }
+  #reg-loading { border-top-color: var(--rule); }
+  #reg-loading p { font-family: var(--font-ui); font-size: 14px; color: var(--ink-soft); }
+  #admin-panel { background: var(--ivory); border-top-color: var(--gold); }
+  .admin-head { display: flex; flex-wrap: wrap; gap: 6px 16px; align-items: baseline; justify-content: space-between; margin-bottom: 4px; }
+  .admin-who { font-family: var(--font-ui); font-size: 13px; color: var(--ink-soft); }
+  #admin-panel .section-note { margin-bottom: 20px; }
+  input[type="date"] {
+    width: 100%;
+    font-family: var(--font-body);
+    font-size: 17px;
+    color: var(--ink);
+    background: #FFFFFF;
+    border: 1px solid #808080;
+    border-radius: 0;
+    padding: 11px 12px;
+    outline: none;
+  }
+  input[type="date"]:focus { border-color: var(--gold); }
+  .admin-actions { display: flex; flex-wrap: wrap; gap: 14px; align-items: center; }
+  .admin-save {
+    font-family: var(--font-ui);
+    font-weight: 700;
+    font-size: 14px;
+    letter-spacing: 0.03em;
+    color: #FFFFFF;
+    background: var(--navy);
+    border: none;
+    border-radius: 4px;
+    padding: 12px 24px;
+    cursor: pointer;
+  }
+  .admin-save:hover { background: var(--gold); }
+  .admin-save:disabled { background: #b9bfc7; cursor: wait; }
+  #admin-status { font-family: var(--font-ui); font-size: 14px; }
+  #admin-status[data-state="ok"]  { color: var(--navy); }
+  #admin-status[data-state="err"] { color: var(--rose); }
+  .add-btn.first { margin-top: 0; }
+
+  @media (max-width: 560px) {
+    .field-row { grid-template-columns: 1fr; }
+    .section-card { padding: 22px 18px; }
+    .participant-card { padding: 18px 16px 20px; }
+    input[type="text"], input[type="email"], input[type="tel"], textarea { font-size: 17px; }
+    button[type="submit"] { width: 100%; padding: 17px 20px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="topband">
+  <div class="topband-inner">
+    <span>Roman Catholic Diocese of San Diego &nbsp;&middot;&nbsp; Office for Cultural Diversity</span>
+    <span><a href="tel:8584908306">(858) 490-8306</a></span>
+  </div>
+</div>
+
+<div class="sitebar">
+  <div class="sitebar-inner">
+    <a class="brand" href="../../index.html">
+      <img src="../../assets/Images/DCFC_LOGO.png" alt="Diocesan Commission for Filipino Catholics, San Diego">
+      <span>
+        <span class="brand-name">Diocesan Commission for Filipino Catholics</span>
+        <span class="brand-sub">Diocese of San Diego</span>
+      </span>
+    </a>
+    <a class="sitebar-link" href="../../index.html#documents">&larr; Documents &amp; Forms</a>
+  </div>
+</div>
+
+<header>
+  <p class="eyebrow">Diocesan Commission for Filipino Catholics</p>
+  <h1>Santacruzan Registration</h1>
+  <p class="subtitle">
+    Participant Registration &mdash; register your parish's Reyna, Escort,
+    and Angels for this year's procession honoring the Blessed Virgin
+    Mary and the finding of the True Cross.
+  </p>
+  <span class="deadline-badge">
+    Registration deadline: <strong id="deadline-date">May 15, 2027</strong> &middot; Reyna
+    assignments are first come, first served
+  </span>
+</header>
+
+<div class="floral-divider" aria-hidden="true">
+  <span class="fl-line"></span>
+  <svg class="fl-icon" viewBox="0 0 24 24">
+    <circle cx="12" cy="6" r="4.2" fill="currentColor" opacity="0.85"/>
+    <circle cx="12" cy="18" r="4.2" fill="currentColor" opacity="0.85"/>
+    <circle cx="6" cy="12" r="4.2" fill="currentColor" opacity="0.85"/>
+    <circle cx="18" cy="12" r="4.2" fill="currentColor" opacity="0.85"/>
+    <circle cx="12" cy="12" r="3.2" fill="#FBF6EC"/>
+  </svg>
+  <span class="fl-line"></span>
+</div>
+
+<div id="config-banner" role="alert"></div>
+
+<section id="admin-panel" class="gate-panel" hidden aria-labelledby="admin-title">
+  <div class="admin-head">
+    <h2 class="section-title" id="admin-title">Registration window</h2>
+    <span class="admin-who" id="admin-who"></span>
+  </div>
+  <p class="section-note">Administrators only. The form is available from the start of the open date through the end of the close date. Leave a date blank for no limit.</p>
+  <div class="field-row">
+    <div class="field">
+      <label for="reg-open">Registration opens</label>
+      <input type="date" id="reg-open">
+    </div>
+    <div class="field">
+      <label for="reg-close">Registration closes</label>
+      <input type="date" id="reg-close">
+    </div>
+  </div>
+  <div class="admin-actions">
+    <button type="button" class="admin-save" id="admin-save">Save dates</button>
+    <span id="admin-status" role="status" aria-live="polite" data-state=""></span>
+  </div>
+</section>
+
+<section id="reg-loading" class="gate-panel">
+  <p>Checking registration dates&hellip;</p>
+</section>
+
+<section id="reg-closed" class="gate-panel" hidden>
+  <h2 class="section-title">Registration is Closed</h2>
+  <p id="reg-closed-note"></p>
+</section>
+
+<form id="santacruzan-form" novalidate hidden>
+
+  <div class="hp-field" aria-hidden="true">
+    <label for="website">Leave this field empty</label>
+    <input type="text" id="website" name="website" tabindex="-1" autocomplete="off">
+  </div>
+
+  <fieldset>
+    <div class="section-card">
+      <div class="section-head">
+        <h2 class="section-title">Parish / organization</h2>
+      </div>
+      <p class="section-note">Submitted by your parish's registration representative.</p>
+
+      <div class="field">
+        <label for="parish-name">Parish or organization name<span class="req">*</span></label>
+        <input type="text" id="parish-name" maxlength="140" autocomplete="organization">
+      </div>
+      <div class="field">
+        <label for="parish-address">Parish address<span class="req">*</span></label>
+        <input type="text" id="parish-address" maxlength="200" autocomplete="street-address">
+      </div>
+      <div class="field">
+        <label for="rep-name">Name of parish representative<span class="req">*</span></label>
+        <input type="text" id="rep-name" maxlength="100" autocomplete="name">
+      </div>
+      <div class="field-row">
+        <div class="field">
+          <label for="rep-phone">Phone number<span class="req">*</span></label>
+          <input type="tel" id="rep-phone" maxlength="30" autocomplete="tel">
+        </div>
+        <div class="field">
+          <label for="rep-email">Email address<span class="req">*</span></label>
+          <input type="email" id="rep-email" maxlength="120" autocomplete="email">
+        </div>
+      </div>
+    </div>
+  </fieldset>
+
+  <fieldset>
+    <div class="section-card">
+      <div class="section-head">
+        <h2 class="section-title">Reyna</h2>
+        <span class="section-tag">optional</span>
+      </div>
+      <p class="section-note">Reyna assignments are made first come, first served.</p>
+      <div class="cards-container" id="reyna-container"></div>
+      <button type="button" class="add-btn first" id="add-reyna">
+        <span class="plus">+</span> <span class="add-label">Add Reyna</span>
+      </button>
+    </div>
+  </fieldset>
+
+  <fieldset>
+    <div class="section-card">
+      <div class="section-head">
+        <h2 class="section-title">Escort</h2>
+        <span class="section-tag">optional</span>
+      </div>
+      <p class="section-note">Skip this section if your parish is not registering an Escort.</p>
+      <div class="cards-container" id="escort-container"></div>
+      <button type="button" class="add-btn first" id="add-escort">
+        <span class="plus">+</span> <span class="add-label">Add Escort</span>
+      </button>
+    </div>
+  </fieldset>
+
+  <fieldset>
+    <div class="section-card">
+      <div class="section-head">
+        <h2 class="section-title">Angels</h2>
+        <span class="section-tag">2 or more recommended</span>
+      </div>
+      <p class="section-note">
+        Each parish is asked to register at least two Angels; additional
+        Angels are always welcome.
+      </p>
+      <div class="cards-container" id="angel-container"></div>
+      <button type="button" class="add-btn first" id="add-angel">
+        <span class="plus">+</span> <span class="add-label">Add Angel</span>
+      </button>
+    </div>
+  </fieldset>
+
+  <div class="submit-row">
+    <button type="submit" id="submit-btn">Submit registration</button>
+    <span class="form-note">
+      Your registration is sent directly to the Santacruzan coordinator.
+    </span>
+    <div id="status-region" role="status" aria-live="polite" data-state=""></div>
+  </div>
+</form>
+
+<div class="floral-divider" aria-hidden="true">
+  <span class="fl-line"></span>
+  <svg class="fl-icon" viewBox="0 0 24 24">
+    <circle cx="12" cy="6" r="4.2" fill="currentColor" opacity="0.85"/>
+    <circle cx="12" cy="18" r="4.2" fill="currentColor" opacity="0.85"/>
+    <circle cx="6" cy="12" r="4.2" fill="currentColor" opacity="0.85"/>
+    <circle cx="18" cy="12" r="4.2" fill="currentColor" opacity="0.85"/>
+    <circle cx="12" cy="12" r="3.2" fill="#FBF6EC"/>
+  </svg>
+  <span class="fl-line"></span>
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <img src="../../assets/Images/DCFC_LOGO.png" alt="">
+      <span>Diocesan Commission<br>for Filipino Catholics</span>
+    </div>
+    <div>
+      <p>Questions about registration? Contact the DCFC Santacruzan coordinator, Yola, at <a href="mailto:ayolamarie@yahoo.com">ayolamarie@yahoo.com</a>.</p>
+    </div>
+    <div>
+      <p>Roman Catholic Diocese of San Diego<br>3888 Paducah Drive<br>San Diego, CA 92117</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function () {
+  "use strict";
+
+  /* ===================================================================
+     1. CONFIGURATION
+     Replace the string below with your deployed Apps Script Web App
+     URL. It looks like:
+     https://script.google.com/macros/s/AKfycb.../exec
+     =================================================================== */
+  const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwyKgOkRAqXPtctNb3cEGputWl2bzjiqIjD31cUpKhukks_4x7Pwu7YtZ2hVpSCc7ODew/exec";
+
+  /* Optional: free spam protection via Google reCAPTCHA v3. Leave the
+     placeholder below as-is to skip this entirely -- the form works
+     fine without it. To enable it, paste in a Site Key from
+     https://www.google.com/recaptcha/admin/create (choose "reCAPTCHA
+     v3" when registering your GitHub Pages domain), and set the
+     matching Secret Key as a Script Property in your Apps Script (see
+     instructions.html for both). reCAPTCHA v3 is invisible -- visitors
+     never see a checkbox or a puzzle. */
+  const RECAPTCHA_SITE_KEY = "PASTE_YOUR_RECAPTCHA_SITE_KEY_HERE";
+
+  const COOLDOWN_MS = 15000;
+  let lastSubmitAt = 0;
+
+  const form         = document.getElementById("santacruzan-form");
+  const submitBtn     = document.getElementById("submit-btn");
+  const statusRegion  = document.getElementById("status-region");
+  const configBanner  = document.getElementById("config-banner");
+
+  const isConfigured = SCRIPT_URL.indexOf("PASTE_YOUR") === -1 &&
+                        SCRIPT_URL.indexOf("script.google.com") !== -1;
+
+  const recaptchaConfigured = RECAPTCHA_SITE_KEY.indexOf("PASTE_YOUR") === -1 &&
+                               RECAPTCHA_SITE_KEY.length > 0;
+
+  if (recaptchaConfigured) {
+    // Loaded dynamically, not as a static <script> tag, so a page with
+    // reCAPTCHA left unconfigured never makes an outbound request to
+    // Google at all.
+    const rcScript = document.createElement("script");
+    rcScript.src = "https://www.google.com/recaptcha/api.js?render=" + RECAPTCHA_SITE_KEY;
+    rcScript.async = true;
+    document.head.appendChild(rcScript);
+  }
+
+  async function getRecaptchaToken() {
+    if (!recaptchaConfigured) return "";
+    if (typeof grecaptcha === "undefined" || !grecaptcha.execute) return "";
+    try {
+      await new Promise(function (resolve) { grecaptcha.ready(resolve); });
+      return await grecaptcha.execute(RECAPTCHA_SITE_KEY, { action: "submit" });
+    } catch (err) {
+      return "";
+    }
+  }
+
+  if (!isConfigured) {
+    configBanner.classList.add("show");
+    configBanner.innerHTML =
+      "<strong>Setup needed:</strong> this page is not yet connected to a " +
+      "Google Sheet. Open <code>index.html</code>, find " +
+      "<code>SCRIPT_URL</code> near the bottom of the file, and paste in " +
+      "your deployed Apps Script Web App URL. Full steps are in " +
+      "<code>instructions.html</code>.";
+    submitBtn.disabled = true;
+    submitBtn.textContent = "Form not connected";
+  }
+
+  /* ===================================================================
+     2. PARTICIPANT CARD TEMPLATES (Reyna / Escort / Angel)
+     =================================================================== */
+
+  const ROLES = {
+    reyna:  { label: "Reyna",  nameLabel: "Reyna's full name",  container: null, counter: 0 },
+    escort: { label: "Escort", nameLabel: "Escort's full name", container: null, counter: 0 },
+    angel:  { label: "Angel",  nameLabel: "Child's full name",  container: null, counter: 0 }
+  };
+
+  ROLES.reyna.container  = document.getElementById("reyna-container");
+  ROLES.escort.container = document.getElementById("escort-container");
+  ROLES.angel.container  = document.getElementById("angel-container");
+
+  function cardTemplate(role) {
+    const cfg = ROLES[role];
+    return (
+      '<div class="participant-card" data-role="' + role + '">' +
+        '<div class="card-top">' +
+          '<span class="card-tag">' + cfg.label + ' <span class="card-num"></span></span>' +
+          '<button type="button" class="remove-card" aria-label="Remove this ' + cfg.label.toLowerCase() + ' entry">&times;</button>' +
+        '</div>' +
+        '<div class="field">' +
+          '<label>' + cfg.nameLabel + '<span class="req">*</span></label>' +
+          '<input type="text" data-field="name" maxlength="100">' +
+        '</div>' +
+        '<div class="field-row">' +
+          '<div class="field">' +
+            '<label>Phone number</label>' +
+            '<input type="tel" data-field="phone" maxlength="30">' +
+          '</div>' +
+          '<div class="field">' +
+            '<label>Email address</label>' +
+            '<input type="email" data-field="email" maxlength="120">' +
+          '</div>' +
+        '</div>' +
+        '<label class="minor-toggle">' +
+          '<input type="checkbox" data-field="minor">' +
+          '<span>This participant is under 18 years old</span>' +
+        '</label>' +
+        '<div class="guardian-panel" hidden>' +
+          '<p class="guardian-note">A parent or guardian must confirm this participant&#39;s involvement.</p>' +
+          '<div class="field">' +
+            '<label>Parent / guardian name<span class="req">*</span></label>' +
+            '<input type="text" data-field="guardianName" maxlength="100">' +
+          '</div>' +
+          '<div class="field-row">' +
+            '<div class="field">' +
+              '<label>Parent / guardian phone</label>' +
+              '<input type="tel" data-field="guardianPhone" maxlength="30">' +
+            '</div>' +
+            '<div class="field">' +
+              '<label>Parent / guardian email</label>' +
+              '<input type="email" data-field="guardianEmail" maxlength="120">' +
+            '</div>' +
+          '</div>' +
+          '<label class="consent-check">' +
+            '<input type="checkbox" data-field="consent">' +
+            '<span>I am this participant&#39;s parent or guardian, and I consent to their participation in the 2027 Santacruzan.</span>' +
+          '</label>' +
+        '</div>' +
+      '</div>'
+    );
+  }
+
+  function renumberCards(role) {
+    const cfg = ROLES[role];
+    const cards = cfg.container.querySelectorAll(".participant-card");
+    cards.forEach(function (card, i) {
+      card.querySelector(".card-num").textContent = "#" + (i + 1);
+    });
+    const btn = document.getElementById("add-" + role);
+    btn.querySelector(".add-label").textContent = (cards.length ? "Add another " : "Add ") + cfg.label;
+    btn.classList.toggle("first", cards.length === 0);
+  }
+
+  function toggleGuardianPanel(card, show) {
+    const panel = card.querySelector(".guardian-panel");
+    panel.hidden = !show;
+  }
+
+  function addParticipant(role, opts) {
+    opts = opts || {};
+    const cfg = ROLES[role];
+    const wrapper = document.createElement("div");
+    wrapper.innerHTML = cardTemplate(role);
+    const card = wrapper.firstElementChild;
+    cfg.container.appendChild(card);
+
+    if (opts.defaultMinor) {
+      const minorBox = card.querySelector('[data-field="minor"]');
+      minorBox.checked = true;
+      toggleGuardianPanel(card, true);
+    }
+
+    renumberCards(role);
+    return card;
+  }
+
+  // Event delegation: remove button + minor toggle, per role container
+  Object.keys(ROLES).forEach(function (role) {
+    const container = ROLES[role].container;
+
+    container.addEventListener("click", function (e) {
+      const btn = e.target.closest(".remove-card");
+      if (!btn) return;
+      const card = btn.closest(".participant-card");
+      card.remove();
+      renumberCards(role);
+    });
+
+    container.addEventListener("change", function (e) {
+      const box = e.target.closest('[data-field="minor"]');
+      if (!box) return;
+      const card = box.closest(".participant-card");
+      toggleGuardianPanel(card, box.checked);
+    });
+  });
+
+  document.getElementById("add-reyna").addEventListener("click", function () {
+    addParticipant("reyna").querySelector('[data-field="name"]').focus();
+  });
+  document.getElementById("add-escort").addEventListener("click", function () {
+    addParticipant("escort").querySelector('[data-field="name"]').focus();
+  });
+  document.getElementById("add-angel").addEventListener("click", function () {
+    addParticipant("angel", { defaultMinor: true }).querySelector('[data-field="name"]').focus();
+  });
+
+  // No cards by default -- each section starts as a single "Add" button.
+  // New Angel cards default to "under 18" checked, since Angels are by
+  // tradition children; the checkbox stays editable.
+
+  /* ===================================================================
+     3. VALIDATION + SUBMISSION
+     =================================================================== */
+
+  function isValidEmail(value) {
+    if (!value) return true; // most email fields are optional
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+  }
+
+  function setStatus(message, state) {
+    statusRegion.textContent = message;
+    statusRegion.setAttribute("data-state", state || "");
+  }
+
+  function showSeal() {
+    statusRegion.innerHTML = "";
+    const seal = document.createElement("span");
+    seal.className = "seal";
+    seal.innerHTML =
+      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">' +
+      '<circle cx="12" cy="12" r="9"/><path d="M8 12.5l2.5 2.5L16 9"/></svg>' +
+      'Registration received';
+    statusRegion.appendChild(seal);
+    statusRegion.setAttribute("data-state", "ok");
+  }
+
+  function collectRole(role) {
+    const cfg = ROLES[role];
+    const cards = cfg.container.querySelectorAll(".participant-card");
+    const items = [];
+    let firstError = null;
+
+    cards.forEach(function (card) {
+      const name = card.querySelector('[data-field="name"]').value.trim();
+      if (!name) return; // blank card, not counted
+
+      const phone = card.querySelector('[data-field="phone"]').value.trim();
+      const email = card.querySelector('[data-field="email"]').value.trim();
+      const minor = card.querySelector('[data-field="minor"]').checked;
+      const guardianName  = card.querySelector('[data-field="guardianName"]').value.trim();
+      const guardianPhone = card.querySelector('[data-field="guardianPhone"]').value.trim();
+      const guardianEmail = card.querySelector('[data-field="guardianEmail"]').value.trim();
+      const consent = card.querySelector('[data-field="consent"]').checked;
+
+      if (!firstError && email && !isValidEmail(email)) {
+        firstError = {
+          message: "That doesn't look like a valid email for " + cfg.label + " \"" + name + "\".",
+          el: card.querySelector('[data-field="email"]')
+        };
+      }
+
+      if (!firstError && minor && (!guardianName || !consent)) {
+        firstError = {
+          message: "Please complete parent/guardian consent for " + cfg.label + " \"" + name + "\".",
+          el: card.querySelector('[data-field="guardianName"]')
+        };
+      }
+
+      if (!firstError && minor && guardianEmail && !isValidEmail(guardianEmail)) {
+        firstError = {
+          message: "That doesn't look like a valid guardian email for " + cfg.label + " \"" + name + "\".",
+          el: card.querySelector('[data-field="guardianEmail"]')
+        };
+      }
+
+      items.push({
+        role: cfg.label, name: name, phone: phone, email: email, minor: minor,
+        guardianName: guardianName, guardianPhone: guardianPhone,
+        guardianEmail: guardianEmail, consent: consent
+      });
+    });
+
+    return { items: items, firstError: firstError };
+  }
+
+  form.addEventListener("submit", async function (event) {
+    event.preventDefault();
+
+    if (!isConfigured) {
+      setStatus("This form is not connected to a sheet yet. See instructions.html.", "err");
+      return;
+    }
+
+    const now = Date.now();
+    if (now - lastSubmitAt < COOLDOWN_MS) {
+      const waitSec = Math.ceil((COOLDOWN_MS - (now - lastSubmitAt)) / 1000);
+      setStatus("Please wait " + waitSec + "s before submitting again.", "err");
+      return;
+    }
+
+    const parish = {
+      name:     document.getElementById("parish-name").value.trim(),
+      address:  document.getElementById("parish-address").value.trim(),
+      repName:  document.getElementById("rep-name").value.trim(),
+      repPhone: document.getElementById("rep-phone").value.trim(),
+      repEmail: document.getElementById("rep-email").value.trim()
+    };
+
+    if (!parish.name)     { setStatus("Please add your parish or organization name.", "err"); document.getElementById("parish-name").focus(); return; }
+    if (!parish.address)  { setStatus("Please add your parish address.", "err"); document.getElementById("parish-address").focus(); return; }
+    if (!parish.repName)  { setStatus("Please add the representative's name.", "err"); document.getElementById("rep-name").focus(); return; }
+    if (!parish.repPhone) { setStatus("Please add the representative's phone number.", "err"); document.getElementById("rep-phone").focus(); return; }
+    if (!parish.repEmail || !isValidEmail(parish.repEmail)) {
+      setStatus("Please add a valid representative email address.", "err");
+      document.getElementById("rep-email").focus();
+      return;
+    }
+
+    const reynaData  = collectRole("reyna");
+    const escortData = collectRole("escort");
+    const angelData  = collectRole("angel");
+
+    const firstError = reynaData.firstError || escortData.firstError || angelData.firstError;
+    if (firstError) {
+      setStatus(firstError.message, "err");
+      firstError.el.focus();
+      return;
+    }
+
+    const participants = reynaData.items.concat(escortData.items, angelData.items);
+
+    const payload = {
+      website: document.getElementById("website").value, // honeypot
+      parish: parish,
+      participants: participants
+    };
+
+    submitBtn.disabled = true;
+    const originalLabel = submitBtn.textContent;
+    submitBtn.textContent = "Submitting\u2026";
+    setStatus("Sending your registration\u2026", "wait");
+
+    try {
+      payload.recaptchaToken = await getRecaptchaToken();
+
+      // mode: "no-cors" is required because Apps Script Web Apps do not
+      // return CORS headers a github.io page can read. The POST still
+      // reaches Google and still writes the rows -- see README.md.
+      await fetch(SCRIPT_URL, {
+        method: "POST",
+        mode: "no-cors",
+        headers: { "Content-Type": "text/plain;charset=utf-8" },
+        body: JSON.stringify(payload)
+      });
+
+      lastSubmitAt = Date.now();
+      form.reset();
+
+      // Clear all participant cards.
+      Object.keys(ROLES).forEach(function (role) {
+        ROLES[role].container.innerHTML = "";
+        renumberCards(role);
+      });
+
+      showSeal();
+    } catch (err) {
+      setStatus("Something went wrong sending your registration. Please try again.", "err");
+    } finally {
+      submitBtn.disabled = false;
+      submitBtn.textContent = originalLabel;
+    }
+  });
+})();
+</script>
+
+<script type="module">
+  /* ===================================================================
+     4. REGISTRATION WINDOW (Firestore: settings/santacruzanRegistration)
+     Same Firebase project and admin allow list as index.html -- keep
+     ADMIN_UIDS in sync with adminUids there and admins() in the rules.
+     =================================================================== */
+  const firebaseConfig = {
+    apiKey: "AIzaSyBR_4eRMJnwtL5-6jOC5qh66Jx-8dFBe-4",
+    authDomain: "dcfc-data.firebaseapp.com",
+    projectId: "dcfc-data",
+    storageBucket: "dcfc-data.firebasestorage.app",
+    messagingSenderId: "855367837227",
+    appId: "1:855367837227:web:ae3784deeaf096c36f2c6e"
+  };
+  const ADMIN_UIDS = [
+    "29fwr8BEMIMpA8a3wlT3cPLLIts1",
+    "XLj2RJN2hIWEHboGzIl2uFSLpiU2"
+  ];
+
+  const $ = (id) => document.getElementById(id);
+  const form = $("santacruzan-form"), loading = $("reg-loading"), closed = $("reg-closed"),
+        closedNote = $("reg-closed-note"), deadline = $("deadline-date"),
+        adminPanel = $("admin-panel"), openIn = $("reg-open"), closeIn = $("reg-close"),
+        saveBtn = $("admin-save"), adminStatus = $("admin-status"), adminWho = $("admin-who");
+
+  let win = { open: null, close: null }, resolved = false, dirty = false;
+  const fmt = (d) => d.toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" });
+  const toInput = (d) => d ? d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + String(d.getDate()).padStart(2, "0") : "";
+  const fromInput = (v, endOfDay) => {
+    if (!v) return null;
+    const [y, m, d] = v.split("-").map(Number);
+    return endOfDay ? new Date(y, m - 1, d, 23, 59, 59, 999) : new Date(y, m - 1, d, 0, 0, 0, 0);
+  };
+
+  function apply() {
+    resolved = true;
+    const now = new Date(), { open, close } = win;
+    const isOpen = (!open || now >= open) && (!close || now <= close);
+    loading.hidden = true;
+    form.hidden = !isOpen;
+    closed.hidden = isOpen;
+    if (!isOpen) {
+      closedNote.textContent = open && now < open
+        ? "Registration opens " + fmt(open) + (close ? " and closes " + fmt(close) : "") + "."
+        : close ? "Registration closed on " + fmt(close) + ". Thank you for your interest." : "";
+    }
+    if (close) deadline.textContent = fmt(close);
+  }
+
+  // Fail open: if Firestore can't be reached, show the form as before.
+  const fallback = setTimeout(() => { if (!resolved) apply(); }, 8000);
+  setInterval(() => { if (resolved) apply(); }, 60000);
+
+  function setAdminStatus(msg, state) { adminStatus.textContent = msg; adminStatus.dataset.state = state || ""; }
+
+  try {
+    const [appMod, fs, authMod] = await Promise.all([
+      import("https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js"),
+      import("https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js"),
+      import("https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js")
+    ]);
+    const app = appMod.getApps().length ? appMod.getApp() : appMod.initializeApp(firebaseConfig);
+    const db = fs.getFirestore(app);
+    const auth = authMod.getAuth(app);
+    const ref = fs.doc(db, "settings", "santacruzanRegistration");
+
+    fs.onSnapshot(ref, (snap) => {
+      const d = snap.exists() ? snap.data() : {};
+      win = {
+        open: d.opensAt && d.opensAt.toDate ? d.opensAt.toDate() : null,
+        close: d.closesAt && d.closesAt.toDate ? d.closesAt.toDate() : null
+      };
+      if (!dirty) { openIn.value = toInput(win.open); closeIn.value = toInput(win.close); }
+      clearTimeout(fallback);
+      apply();
+    }, () => { clearTimeout(fallback); apply(); });
+
+    authMod.onAuthStateChanged(auth, (user) => {
+      const isAdmin = !!(user && ADMIN_UIDS.includes(user.uid));
+      adminPanel.hidden = !isAdmin;
+      adminWho.textContent = isAdmin ? "Signed in as " + (user.email || "administrator") : "";
+    });
+
+    [openIn, closeIn].forEach((el) => el.addEventListener("input", () => { dirty = true; setAdminStatus(""); }));
+
+    saveBtn.addEventListener("click", async () => {
+      const user = auth.currentUser;
+      if (!user || !ADMIN_UIDS.includes(user.uid)) { setAdminStatus("Sign in as an administrator on the main site first.", "err"); return; }
+      const o = fromInput(openIn.value, false), c = fromInput(closeIn.value, true);
+      if (o && c && o > c) { setAdminStatus("The close date must be on or after the open date.", "err"); return; }
+      saveBtn.disabled = true;
+      setAdminStatus("Saving\u2026");
+      try {
+        await fs.setDoc(ref, {
+          opensAt: o ? fs.Timestamp.fromDate(o) : null,
+          closesAt: c ? fs.Timestamp.fromDate(c) : null,
+          updatedAt: fs.serverTimestamp(),
+          updatedBy: user.email || user.uid
+        }, { merge: true });
+        dirty = false;
+        setAdminStatus("Saved.", "ok");
+      } catch (err) {
+        setAdminStatus(err && err.code === "permission-denied"
+          ? "Permission denied \u2014 check the settings rule in Firestore (see instructions.html)."
+          : "Could not save. Please try again.", "err");
+      } finally {
+        saveBtn.disabled = false;
+      }
+    });
+  } catch (err) {
+    clearTimeout(fallback);
+    if (!resolved) apply();
+  }
+</script>
+
+</body>
+</html>
