@@ -337,8 +337,8 @@
   </ol>
 
   <h3>Step 2 &mdash; Publish the security rules</h3>
-  <p>Rules decide who may read and write, and they are the <em>only</em> real protection on your data &mdash; the allow list inside <code>index.html</code> merely controls what the interface offers. Both must list the same people.</p>
-  <p>These rules allow <strong>anyone to read events</strong> (the site is public) but permit <strong>writes only from a signed-in Google account whose user ID appears in the allow list</strong>, and close off every other collection. In Firestore, open the <strong>Rules</strong> tab, select all the existing text, paste this over it, and click <strong>Publish</strong>.</p>
+  <p>Rules decide who may read and write, and they are the <em>only</em> real protection on your data &mdash; the site only uses the <code>admins</code> collection to decide what interface to show. Both read the same documents, so there is one list to maintain.</p>
+  <p>These rules allow <strong>anyone to read events</strong> (the site is public) but permit <strong>writes only from a signed-in Google account that has a document in the <code>admins</code> collection with <code>role: "admin"</code></strong>. The <code>admins</code> collection itself can only be changed from the Firebase console, and every other collection is closed. In Firestore, open the <strong>Rules</strong> tab, select all the existing text, paste this over it, and click <strong>Publish</strong>.</p>
 
   <div class="codeblock">
     <div class="codebar">
@@ -351,22 +351,30 @@ service cloud.firestore {
   match /databases/{database}/documents {
 
     // ---------------------------------------------------------------
-    // ADMINISTRATOR ALLOW LIST
-    // Paste each administrator's Firebase UID between the quotes.
-    // Add or remove lines as people join and leave the Commission.
-    // The SAME list must also appear in adminUids in index.html.
+    // ADMINISTRATOR ROLES
+    // A person is an administrator when admins/{their UID} exists
+    // and has the field  role: "admin". Add, edit or delete those
+    // documents in the Firebase console -- no rule changes needed.
     // ---------------------------------------------------------------
-    function admins() {
-      return [
-        "29fwr8BEMIMpA8a3wlT3cPLLIts1",
-        "XLj2RJN2hIWEHboGzIl2uFSLpiU2"
-      ];
+    function adminDoc(uid) {
+      return /databases/$(database)/documents/admins/$(uid);
     }
 
     function isAdmin() {
       return request.auth != null
-          && request.auth.uid in admins()
-          && request.auth.token.email_verified == true;
+          && request.auth.token.email_verified == true
+          && exists(adminDoc(request.auth.uid))
+          && get(adminDoc(request.auth.uid)).data.role == "admin";
+    }
+
+    // The role list. A signed-in user may read their own document
+    // (so the site can tell whether to show the admin tools);
+    // administrators may read all of them. Nobody may write from the
+    // site -- roles are granted and revoked in the Firebase console.
+    match /admins/{uid} {
+      allow read: if request.auth != null
+                  && (request.auth.uid == uid || isAdmin());
+      allow write: if false;
     }
 
     // Events shown in the public schedule.
@@ -392,7 +400,7 @@ service cloud.firestore {
   </div>
 
   <div class="note">
-    <p><strong>The two IDs above are the current administrators</strong> and match <code>adminUids</code> in <code>index.html</code>. Publish as written. Step&nbsp;4 explains how to obtain an ID for anyone you add later &mdash; it goes in both lists.</p>
+    <p><strong>Before publishing, create the current administrators&rsquo; documents</strong> or everyone will be locked out of editing. In the <strong>Data</strong> tab click <strong>Start collection</strong>, name it <code>admins</code>, and add one document per person: <strong>Document ID</strong> = their UID, one field <code>role</code> (string) = <code>admin</code>. Optionally add <code>email</code> and <code>name</code> fields as labels. The current two are <code>29fwr8BEMIMpA8a3wlT3cPLLIts1</code> and <code>XLj2RJN2hIWEHboGzIl2uFSLpiU2</code>.</p>
   </div>
 
   <div class="note">
@@ -410,21 +418,16 @@ service cloud.firestore {
     <p>If you skip the Authorized domains step, sign-in fails with &ldquo;This web address is not on the Authorized domains list&rdquo; &mdash; the site reports this on screen.</p>
   </div>
 
-  <h3>Step 4 &mdash; Add administrators to the allow list</h3>
+  <h3>Step 4 &mdash; Add administrators to the <code>admins</code> collection</h3>
   <p>Each administrator&rsquo;s Firebase <strong>UID</strong> is a unique identifier generated the first time they sign in. You cannot invent it or look it up in advance &mdash; they must sign in once so the site can show it to them.</p>
   <ol>
     <li>Have the administrator open the site and click <strong>Sign in</strong> at the top right.</li>
     <li>They sign in with their Google account. Because their ID is not on the list yet, the site says <em>Not yet authorized</em> and displays their user ID with a <strong>Copy my ID</strong> button.</li>
-    <li>They send you that ID. Paste it into <strong>both</strong> places:
-      <ul>
-        <li><strong>Firestore rules</strong> &mdash; replace a <code>PASTE_..._UID_HERE</code> placeholder inside <code>admins()</code>, then <strong>Publish</strong>. This is what actually grants access.</li>
-        <li><strong><code>index.html</code></strong> &mdash; find <code>adminUids</code> near the top of the script at the bottom of the file and add the ID as a quoted string, e.g. <code>"abc123XYZ",</code>. Remove the leading <code>//</code> from the sample line. This is what reveals the editing interface. Commit and push.</li>
-      </ul>
-    </li>
+    <li>They send you that ID. In Firestore&rsquo;s <strong>Data</strong> tab, open the <code>admins</code> collection, click <strong>Add document</strong>, paste the ID as the <strong>Document ID</strong>, and add a string field <code>role</code> = <code>admin</code>. Save. No code change or redeploy is needed.</li>
     <li>The administrator signs out and back in. They now see <strong>Calendar Administration</strong> with the event form and the list of published celebrations.</li>
   </ol>
   <div class="note">
-    <p><strong>Both lists, every time.</strong> In the rules only &rarr; they can write but see no interface. In <code>index.html</code> only &rarr; they see the form but every save is refused with a permissions error. To revoke access, remove the ID from both and publish; that person is locked out immediately, regardless of what is cached in their browser.</p>
+    <p><strong>One list.</strong> The site and the rules both read the same <code>admins</code> document. To revoke access, delete the person&rsquo;s document (or change <code>role</code> to anything other than <code>admin</code>); their next save is refused immediately, regardless of what is cached in their browser.</p>
   </div>
 
   <h3>Step 5 &mdash; Create the <code>events</code> collection</h3>
@@ -557,11 +560,11 @@ service cloud.firestore {
       </tr>
       <tr>
         <td>Signed in, but no editing interface appears</td>
-        <td>The user ID is not in <code>adminUids</code> in <code>index.html</code>, or the change was not pushed to GitHub. Sign out and back in after pushing.</td>
+        <td>There is no document in <code>admins</code> whose ID is exactly that user ID, or its <code>role</code> field is not the string <code>admin</code>. Also check the rules are published. Sign out and back in after fixing.</td>
       </tr>
       <tr>
         <td>Saving an event fails with a permissions error</td>
-        <td>The user ID is in <code>index.html</code> but not in the <code>admins()</code> list in the Firestore rules &mdash; or the rules were edited but not published.</td>
+        <td>The rules were not published, or the account&rsquo;s Google email is unverified. The rules also require <code>role</code> to be exactly <code>admin</code> (lower-case).</td>
       </tr>
       <tr>
         <td>Nothing happens when clicking Sign in</td>

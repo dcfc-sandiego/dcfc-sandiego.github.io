@@ -249,8 +249,8 @@
         <sc-if value="{{ authUnauthorized }}" hint-placeholder-val="{{ false }}">
           <div style="border: 1px solid rgba(236,139,51,0.55); border-radius: 4px; padding: 26px 24px">
             <p style="font-family: Montserrat, sans-serif; font-size: 13px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: #EC8B33; margin: 0 0 14px">Not yet authorized</p>
-            <p style="font-size: 17px; line-height: 1.7; color: #FFFFFF; margin: 0 0 8px">You are signed in as {{ userEmail }}, but this account is not on the administrator allow list.</p>
-            <p style="font-size: 16px; line-height: 1.7; color: #b9c4ce; margin: 0 0 20px">Send the user ID below to the site administrator. It must be added in two places &mdash; the allow list in <code style="font-family: ui-monospace, Menlo, monospace; font-size: 0.9em">index.html</code> and the Firestore security rules &mdash; after which sign out and back in.</p>
+            <p style="font-size: 17px; line-height: 1.7; color: #FFFFFF; margin: 0 0 8px">You are signed in as {{ userEmail }}, but this account does not have the administrator role.</p>
+            <p style="font-size: 16px; line-height: 1.7; color: #b9c4ce; margin: 0 0 20px">Send the user ID below to the site administrator. They add it as a document in the <code style="font-family: ui-monospace, Menlo, monospace; font-size: 0.9em">admins</code> collection in Firestore, after which sign out and back in.</p>
             <div style="display: flex; flex-wrap: wrap; gap: 12px; align-items: center; margin-bottom: 22px">
               <code style="flex: 1 1 240px; min-width: 0; font-family: ui-monospace, 'SFMono-Regular', Menlo, monospace; font-size: 14px; color: #FFFFFF; background: #0d2637; border: 1px solid rgba(255,255,255,0.28); border-radius: 3px; padding: 12px 14px; overflow-wrap: break-word">{{ userUid }}</code>
               <button type="button" onClick="{{ copyUid }}" style="font-family: Montserrat, sans-serif; font-size: 14px; font-weight: 700; letter-spacing: 0.04em; color: #FFFFFF; background: #EC8B33; border: 0; border-radius: 4px; padding: 13px 26px; cursor: pointer" style-hover="background: #d97c25">{{ uidCopyLabel }}</button>
@@ -613,21 +613,28 @@ class Component extends DCLogic {
     events: null, eventsStatus: "loading", eventsError: "",
     user: null, authReady: false, authBusy: false, authError: "", uidCopied: false,
     parishOpen: false, parishHi: 0,
+    isAdminRole: false, roleChecked: false,
     adminBusy: false, adminError: "", adminNote: "", isNarrow: typeof window !== "undefined" && window.matchMedia("(max-width: 720px)").matches,
     form: { id: "", title: "", start: "", end: "", dateLabel: "", parish: "", address: "", time: "", detail: "", published: true }
   };
 
   // ------------------------------------------------------------------
-  // ADMINISTRATOR ALLOW LIST
-  // Paste each administrator's Firebase UID between the quotes below.
-  // A signed-in user sees their own UID on screen after signing in.
-  // The SAME UIDs must also be listed in the Firestore security rules,
-  // which are what actually protect the data. See instructions.html.
+  // ADMINISTRATORS live in the Firestore "admins" collection:
+  // one document per person, document ID = their Firebase UID,
+  // with the field  role: "admin". Managed in the Firebase console.
+  // The security rules check the same document. See instructions.html.
   // ------------------------------------------------------------------
-  adminUids = [
-    "29fwr8BEMIMpA8a3wlT3cPLLIts1",
-    "XLj2RJN2hIWEHboGzIl2uFSLpiU2",
-  ];
+  async checkAdminRole(u) {
+    if (!u || !this._fs) { this.setState({ isAdminRole: false, roleChecked: true }); return; }
+    this.setState({ isAdminRole: false, roleChecked: false });
+    let ok = false;
+    try {
+      const snap = await this._fs.getDoc(this._fs.doc(this._db, "admins", u.uid));
+      ok = snap.exists() && (snap.data() || {}).role === "admin";
+    } catch (err) { ok = false; }
+    if (!this._alive || !this.state.user || this.state.user.uid !== u.uid) return;
+    this.setState({ isAdminRole: ok, roleChecked: true });
+  }
 
   // ------------------------------------------------------------------
   // PARISHES AND MISSIONS OF THE DIOCESE OF SAN DIEGO
@@ -818,6 +825,7 @@ class Component extends DCLogic {
           adminNote: "",
           uidCopied: false
         });
+        this.checkAdminRole(u);
       });
       const q = fs.query(fs.collection(db, "events"), fs.orderBy("start", "asc"));
       this._unsub = fs.onSnapshot(
@@ -861,7 +869,7 @@ class Component extends DCLogic {
   }
 
   isAllowed(user) {
-    return !!(user && this.adminUids.indexOf(user.uid) !== -1);
+    return !!(user && this.state.isAdminRole);
   }
 
   toDate(v) {
@@ -1005,7 +1013,7 @@ class Component extends DCLogic {
 
     return {
       authSignedOut: this.state.authReady && !user,
-      authUnauthorized: !!user && !allowed,
+      authUnauthorized: !!user && !!this.state.roleChecked && !allowed,
       isAdmin: allowed,
       authBusy: this.state.authBusy,
       authError: this.state.authError,
@@ -1146,7 +1154,7 @@ class Component extends DCLogic {
           this.setState({
             adminBusy: false,
             adminError: code === "permission-denied"
-              ? "Firestore refused the write. Add your user ID to the allow list in the security rules."
+              ? "Firestore refused the write. Check that your admins document exists with role \"admin\" and the rules are published."
               : (err && err.message) || "Could not save."
           });
         }

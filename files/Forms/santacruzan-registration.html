@@ -1198,8 +1198,9 @@
 <script type="module">
   /* ===================================================================
      4. REGISTRATION WINDOW (Firestore: settings/santacruzanRegistration)
-     Same Firebase project and admin allow list as index.html -- keep
-     ADMIN_UIDS in sync with adminUids there and admins() in the rules.
+     Same Firebase project as index.html. Administrators are the
+     documents in the Firestore "admins" collection (ID = UID,
+     role: "admin"); the rules check the same documents.
      =================================================================== */
   const firebaseConfig = {
     apiKey: "AIzaSyBR_4eRMJnwtL5-6jOC5qh66Jx-8dFBe-4",
@@ -1209,10 +1210,7 @@
     messagingSenderId: "855367837227",
     appId: "1:855367837227:web:ae3784deeaf096c36f2c6e"
   };
-  const ADMIN_UIDS = [
-    "29fwr8BEMIMpA8a3wlT3cPLLIts1",
-    "XLj2RJN2hIWEHboGzIl2uFSLpiU2"
-  ];
+  let isAdmin = false;
 
   const $ = (id) => document.getElementById(id);
   const form = $("santacruzan-form"), loading = $("reg-loading"), closed = $("reg-closed"),
@@ -1272,8 +1270,16 @@
       apply();
     }, () => { clearTimeout(fallback); apply(); });
 
-    authMod.onAuthStateChanged(auth, (user) => {
-      const isAdmin = !!(user && ADMIN_UIDS.includes(user.uid));
+    authMod.onAuthStateChanged(auth, async (user) => {
+      isAdmin = false;
+      adminPanel.hidden = true;
+      adminWho.textContent = "";
+      if (!user) return;
+      try {
+        const snap = await fs.getDoc(fs.doc(db, "admins", user.uid));
+        isAdmin = snap.exists() && (snap.data() || {}).role === "admin";
+      } catch (e) { isAdmin = false; }
+      if (auth.currentUser !== user) return;
       adminPanel.hidden = !isAdmin;
       adminWho.textContent = isAdmin ? "Signed in as " + (user.email || "administrator") : "";
     });
@@ -1282,7 +1288,7 @@
 
     saveBtn.addEventListener("click", async () => {
       const user = auth.currentUser;
-      if (!user || !ADMIN_UIDS.includes(user.uid)) { setAdminStatus("Sign in as an administrator on the main site first.", "err"); return; }
+      if (!user || !isAdmin) { setAdminStatus("Sign in as an administrator on the main site first.", "err"); return; }
       const o = fromInput(openIn.value, false), c = fromInput(closeIn.value, true);
       if (o && c && o > c) { setAdminStatus("The close date must be on or after the open date.", "err"); return; }
       saveBtn.disabled = true;
