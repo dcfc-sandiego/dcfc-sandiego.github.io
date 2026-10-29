@@ -1,4 +1,4 @@
-// Shared event data for index.html and files/Documents/event-schedule.html.
+// Shared event data for index.html and files/pages/event-schedule.html.
 // Both pages read the live Firestore "events" collection; FALLBACK_EVENTS is
 // the standing schedule shown only when the live calendar is unavailable.
 

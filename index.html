@@ -4,6 +4,16 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <script src="./support.js"></script>
+<link rel="icon" type="image/png" sizes="32x32" href="assets/Icons/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="assets/Icons/favicon-16.png">
+<link rel="icon" type="image/png" sizes="48x48" href="assets/Icons/favicon-48.png">
+<link rel="apple-touch-icon" sizes="180x180" href="assets/Icons/apple-touch-icon.png">
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#112F45">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="DCFC">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
 </head>
 <body>
 <x-dc>
@@ -36,14 +46,17 @@
   </sc-if>
 
   <header style="border-bottom: 1px solid #e3e6ea; background: #FFFFFF">
-    <div style="max-width: 1120px; margin: 0 auto; padding: 16px clamp(16px, 4vw, 32px); display: flex; flex-wrap: wrap; gap: 24px; align-items: center; justify-content: space-between">
-      <a href="#top" onClick="{{ goHome }}" style="display: flex; gap: 14px; align-items: center; color: inherit; flex: 1 1 260px; min-width: 0">
-        <img src="assets/Images/DCFC_LOGO.png" alt="Diocesan Commission for Filipino Catholics, San Diego" style="width: clamp(52px, 11vw, 76px); height: clamp(52px, 11vw, 76px); object-fit: contain; display: block; flex: 0 0 auto" />
+    <div style="max-width: 1120px; margin: 0 auto; padding: clamp(10px, 2.4vw, 16px) clamp(16px, 4vw, 32px); display: flex; flex-wrap: wrap; gap: 16px 24px; align-items: center; justify-content: space-between">
+      <a href="#top" onClick="{{ goHome }}" style="display: flex; gap: clamp(10px, 2.4vw, 14px); align-items: center; color: inherit; flex: 1 1 200px; min-width: 0">
+        <img src="assets/Images/DCFC_LOGO.png" alt="Diocesan Commission for Filipino Catholics, San Diego" style="width: clamp(44px, 11vw, 76px); height: clamp(44px, 11vw, 76px); object-fit: contain; display: block; flex: 0 0 auto" />
         <span style="display: block">
-          <span style="display: block; font-family: Montserrat, sans-serif; font-weight: 700; font-size: clamp(15px, 2.8vw, 19px); color: #112F45; letter-spacing: -0.01em; line-height: 1.25">Diocesan Commission for Filipino Catholics</span>
-          <span style="display: block; font-family: Montserrat, sans-serif; font-weight: 500; font-size: 13px; color: #6c7480; letter-spacing: 0.08em; text-transform: uppercase; margin-top: 5px">Diocese of San Diego</span>
+          <span style="display: block; font-family: Montserrat, sans-serif; font-weight: 700; font-size: clamp(14px, 2.8vw, 19px); color: #112F45; letter-spacing: -0.01em; line-height: 1.25; text-wrap: balance">Diocesan Commission for Filipino Catholics</span>
+          <sc-if value="{{ isWide }}" hint-placeholder-val="{{ true }}">
+            <span style="display: block; font-family: Montserrat, sans-serif; font-weight: 500; font-size: 13px; color: #6c7480; letter-spacing: 0.08em; text-transform: uppercase; margin-top: 5px">Diocese of San Diego</span>
+          </sc-if>
         </span>
       </a>
+      <sc-if value="{{ isWide }}" hint-placeholder-val="{{ true }}">
       <nav style="display: flex; flex-wrap: wrap; gap: 12px 20px; font-family: Montserrat, sans-serif; font-size: 14px; font-weight: 600">
         <a href="#who-we-are" onClick="{{ goHome }}" style="color: #112F45" style-hover="color: #EC8B33">Who We Are</a>
         <a href="#events" onClick="{{ goHome }}" style="color: #112F45" style-hover="color: #EC8B33">Events</a>
@@ -66,32 +79,63 @@
           {{ authLabel }}
         </button>
       </nav>
+      </sc-if>
+      <sc-if value="{{ isNarrow }}" hint-placeholder-val="{{ false }}">
+        <button type="button" onClick="{{ toggleMenu }}" aria-expanded="{{ menuExpanded }}" aria-controls="mobile-menu" aria-label="Menu" style="width: 46px; height: 46px; flex: 0 0 auto; display: flex; flex-direction: column; gap: 5px; align-items: center; justify-content: center; background: transparent; border: 1px solid #e3e6ea; border-radius: 4px; cursor: pointer; padding: 0">
+          <span style="display: block; width: 20px; height: 2px; background: #112F45; transition: transform 0.2s ease; transform: {{ barTop }}"></span>
+          <span style="display: block; width: 20px; height: 2px; background: #112F45; transition: opacity 0.2s ease; opacity: {{ barMid }}"></span>
+          <span style="display: block; width: 20px; height: 2px; background: #112F45; transition: transform 0.2s ease; transform: {{ barBot }}"></span>
+        </button>
+      </sc-if>
     </div>
+    <sc-if value="{{ menuOpen }}" hint-placeholder-val="{{ false }}">
+      <nav id="mobile-menu" onClick="{{ closeMenu }}" style="border-top: 1px solid #e3e6ea; padding: 6px clamp(16px, 4vw, 32px) 12px; font-family: Montserrat, sans-serif; font-weight: 600; display: flex; flex-direction: column">
+          <a href="#who-we-are" onClick="{{ goHome }}" style="display: flex; align-items: center; min-height: 52px; font-size: 17px; color: #112F45" style-hover="color: #EC8B33; text-decoration: none">Who We Are</a>
+          <a href="#events" onClick="{{ goHome }}" style="display: flex; align-items: center; min-height: 52px; font-size: 17px; color: #112F45" style-hover="color: #EC8B33; text-decoration: none">Events</a>
+          <a href="#photos" onClick="{{ goHome }}" style="display: flex; align-items: center; min-height: 52px; font-size: 17px; color: #112F45" style-hover="color: #EC8B33; text-decoration: none">Photos</a>
+          <a href="#videos" onClick="{{ goHome }}" style="display: flex; align-items: center; min-height: 52px; font-size: 17px; color: #112F45" style-hover="color: #EC8B33; text-decoration: none">Videos</a>
+          <a href="#documents" onClick="{{ goDocuments }}" style="display: flex; align-items: center; min-height: 52px; font-size: 17px; color: #112F45" style-hover="color: #EC8B33; text-decoration: none">Documents &amp; Forms</a>
+          <a href="#contact" onClick="{{ goHome }}" style="display: flex; align-items: center; min-height: 52px; font-size: 17px; color: #112F45" style-hover="color: #EC8B33; text-decoration: none">Contact</a>
+          <button type="button" onClick="{{ toggleAuth }}" disabled="{{ authBusy }}" title="{{ authTitle }}" style="display: flex; gap: 12px; align-items: center; width: 100%; min-height: 56px; font-family: Montserrat, sans-serif; font-size: 16px; font-weight: 600; color: #112F45; background: transparent; border: 0; border-top: 1px solid #e3e6ea; border-radius: 0; padding: 8px 0; margin-top: 6px; cursor: pointer; text-align: left" style-hover="color: #EC8B33">
+            <sc-if value="{{ hasPhoto }}" hint-placeholder-val="{{ false }}">
+              <img src="{{ userPhoto }}" alt="" referrerPolicy="no-referrer" ref="{{ photoRef }}" style="width: 30px; height: 30px; border-radius: 50%; object-fit: cover; display: block; flex: 0 0 auto; background: #e3e6ea" />
+            </sc-if>
+            <sc-if value="{{ noPhoto }}" hint-placeholder-val="{{ true }}">
+              <span style="width: 30px; height: 30px; border-radius: 50%; background: #eef0f3; border: 1px solid #dfe3e8; flex: 0 0 auto; display: flex; align-items: flex-end; justify-content: center; overflow: hidden">
+                <svg viewBox="0 0 30 30" width="30" height="30" aria-hidden="true" style="display: block">
+                  <circle cx="15" cy="11" r="4.6" fill="#9aa4b0"></circle>
+                  <ellipse cx="15" cy="25.5" rx="8.2" ry="6.4" fill="#9aa4b0"></ellipse>
+                </svg>
+              </span>
+            </sc-if>
+            {{ authLabel }}
+          </button>
+      </nav>
+    </sc-if>
   </header>
 
   <sc-if value="{{ isHome }}" hint-placeholder-val="{{ true }}">
-  <section id="top" style="position: relative; width: 100%; height: min(78svh, 720px); min-height: 430px; overflow: hidden; background: #0d2637">
+  <section id="top" style="position: relative; width: 100%; height: min(78svh, 720px); min-height: 400px; overflow: hidden; background: #0d2637">
     <div style="position: absolute; inset: -12% 0 -12% 0; will-change: transform; transform: {{ heroParallax }}">
-      <img src="assets/Images/community-gathering-hero.png" alt="Filipino Catholics of the Diocese of San Diego gathered after the Mabuhay consultation" style="display: block; width: 100%; height: 100%; object-fit: cover; object-position: center 42%" />
+      <img src="https://live.staticflickr.com/65535/55620600765_8a8c433987_b.jpg" alt="Carosa procession at sunset, San Pedro Calungsod celebration" style="display: block; width: 100%; height: 100%; object-fit: cover; object-position: center 42%" />
     </div>
     <div style="position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(13,38,55,0.62) 0%, rgba(13,38,55,0.34) 38%, rgba(13,38,55,0.86) 100%)"></div>
     <div style="position: absolute; inset: 0; display: flex; align-items: center">
       <div style="max-width: 1120px; width: 100%; margin: 0 auto; padding: 24px clamp(16px, 4vw, 32px) 40px; opacity: {{ heroFade }}">
-        <p style="font-family: Montserrat, sans-serif; font-size: 13px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: #EC8B33; margin: 0 0 16px">Cultural Communities &nbsp;&middot;&nbsp; Diocese of San Diego</p>
-        <h1 style="font-family: Montserrat, sans-serif; font-size: clamp(42px, 6.4vw, 78px); line-height: 1.02; font-weight: 700; color: #FFFFFF; margin: 0; letter-spacing: -0.03em; max-width: 900px; text-wrap: pretty; text-shadow: 0 2px 24px rgba(0,0,0,0.35)">Filipino Community</h1>
-        <p style="font-size: clamp(18px, 2vw, 23px); line-height: 1.55; color: #eef2f6; max-width: 720px; margin: 20px 0 28px; text-wrap: pretty; text-shadow: 0 1px 12px rgba(0,0,0,0.4)">One faith, one family &mdash; gathered in prayer, service, and the living traditions of the Filipino people.</p>
-        <div style="display: flex; flex-wrap: wrap; gap: 14px; align-items: center">
-          <a href="#events" style="font-family: Montserrat, sans-serif; font-size: 15px; font-weight: 700; letter-spacing: 0.04em; color: #FFFFFF; background: #EC8B33; border-radius: 4px; padding: 16px 32px" style-hover="background: #d97c25; text-decoration: none; color: #FFFFFF">Upcoming Events</a>
-          <a href="#who-we-are" style="font-family: Montserrat, sans-serif; font-size: 15px; font-weight: 600; color: #FFFFFF; border: 1px solid rgba(255,255,255,0.55); border-radius: 4px; padding: 15px 30px" style-hover="border-color: #EC8B33; color: #EC8B33; text-decoration: none">Who We Are</a>
+        <p style="font-family: Montserrat, sans-serif; font-size: clamp(11px, 1.4vw, 13px); font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: #EC8B33; margin: 0 0 14px"><sc-if value="{{ isWide }}" hint-placeholder-val="{{ true }}">Cultural Communities &nbsp;&middot;&nbsp; </sc-if>Diocese of San Diego</p>
+        <h1 style="font-family: Montserrat, sans-serif; font-size: clamp(40px, 6.4vw, 78px); line-height: 1.02; font-weight: 700; color: #FFFFFF; margin: 0; letter-spacing: -0.03em; max-width: 900px; text-wrap: pretty; text-shadow: 0 2px 24px rgba(0,0,0,0.35)">Filipino Community</h1>
+        <p style="font-size: clamp(18px, 2vw, 23px); line-height: 1.5; color: #eef2f6; max-width: 720px; margin: clamp(14px, 2vw, 20px) 0 clamp(22px, 3vw, 28px); text-wrap: pretty; text-shadow: 0 1px 12px rgba(0,0,0,0.4)">One faith, one family &mdash; gathered in prayer, service, and the living traditions of the Filipino people.</p>
+        <div style="display: flex; flex-wrap: wrap; gap: 10px 14px; align-items: center">
+          <a href="#events" style="font-family: Montserrat, sans-serif; font-size: clamp(14px, 1.6vw, 15px); font-weight: 700; letter-spacing: 0.03em; color: #FFFFFF; background: #EC8B33; border-radius: 4px; padding: 15px clamp(18px, 3vw, 32px); text-align: center" style-hover="background: #d97c25; text-decoration: none; color: #FFFFFF">Upcoming Events</a>
+          <a href="#who-we-are" style="font-family: Montserrat, sans-serif; font-size: clamp(14px, 1.6vw, 15px); font-weight: 600; color: #FFFFFF; border: 1px solid rgba(255,255,255,0.55); border-radius: 4px; padding: 14px clamp(18px, 3vw, 30px); text-align: center" style-hover="border-color: #EC8B33; color: #EC8B33; text-decoration: none">Who We Are</a>
         </div>
       </div>
     </div>
-    <p style="position: absolute; right: clamp(16px, 4vw, 32px); bottom: 14px; margin: 0; max-width: min(62%, 420px); text-align: right; font-family: Montserrat, sans-serif; font-size: 12px; letter-spacing: 0.04em; color: rgba(255,255,255,0.72)">&ldquo;Filipino Catholics: Gifts to the Church and the World&rdquo; consultation</p>
   </section>
 
   <section style="max-width: 1120px; margin: 0 auto; padding: clamp(36px, 7vw, 60px) clamp(16px, 4vw, 32px) 0">
     <div style="display: flex; flex-wrap: wrap; gap: 28px 44px; align-items: center">
-      <p style="font-size: 22px; line-height: 1.7; color: #3b424a; margin: 0; text-wrap: pretty; border-left: 4px solid #EC8B33; padding-left: 26px">Mabuhay, and welcome! The Diocesan Commission for Filipino Catholics gathers all parishes, ministries, and families across San Diego and Imperial Counties to share in our Filipino traditions that strengthen our Catholic faith and community.</p>
+      <p style="font-size: clamp(19px, 2.4vw, 22px); line-height: 1.65; color: #3b424a; margin: 0; text-wrap: pretty; border-left: 4px solid #EC8B33; padding-left: clamp(16px, 3vw, 26px)">Mabuhay, and welcome! The Diocesan Commission for Filipino Catholics gathers all parishes, ministries, and families across San Diego and Imperial Counties to share in our Filipino traditions that strengthen our Catholic faith and community.</p>
     </div>
   </section>
 
@@ -369,6 +413,17 @@
       <h1 style="font-family: Montserrat, sans-serif; font-size: clamp(40px, 5.6vw, 64px); line-height: 1.05; font-weight: 700; color: #112F45; margin: 0; letter-spacing: -0.02em">Documents &amp; Forms</h1>
       <div style="width: 72px; height: 4px; background: #EC8B33; margin: 22px 0 26px"></div>
       <p style="font-size: 20px; line-height: 1.7; color: #3b424a; max-width: 780px; margin: 0 0 44px; text-wrap: pretty">Schedules, notices, and registration forms published by the Commission. Documents open for reading or download; forms open in a new tab so you may complete and submit them without leaving this page.</p>
+
+      <div style="border: 1px solid #e3e6ea; border-top: 4px solid #EC8B33; border-radius: 4px; padding: 0 clamp(18px, 3vw, 28px); overflow: hidden; margin: 0 0 24px">
+        <div style="display: flex; flex-wrap: wrap; gap: 16px 28px; align-items: center; justify-content: space-between; padding: 22px 0">
+          <div style="flex: 1 1 min(100%, 260px); min-width: 0">
+            <p style="font-family: Montserrat, sans-serif; font-size: 20px; font-weight: 600; color: #112F45; margin: 0 0 8px; line-height: 1.35">Website Modernization Plan</p>
+            <p style="font-size: 17px; line-height: 1.6; color: #4b535c; margin: 0 0 8px">Two approaches for growing the Commission&rsquo;s online presence, with pros, cons, and next steps.</p>
+            <p style="font-family: Montserrat, sans-serif; font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: #6c7480; margin: 0">Draft for discussion &middot; October 2026</p>
+          </div>
+          <a href="files/pages/website-modernization-plan.html" target="_blank" rel="noopener" style="font-family: Montserrat, sans-serif; font-size: 14px; font-weight: 600; color: #112F45; border: 1px solid #112F45; border-radius: 4px; padding: 12px 22px; white-space: nowrap" style-hover="background: #112F45; color: #FFFFFF; text-decoration: none">View Plan</a>
+        </div>
+      </div>
 
       <div style="border: 1px solid #e3e6ea; border-top: 4px solid #112F45; border-radius: 4px; padding: 0 clamp(18px, 3vw, 28px); overflow: hidden">
         <sc-for list="{{ featuredItems }}" as="item" hint-placeholder-count="2">
@@ -885,7 +940,7 @@ class Component extends DCLogic {
     // Utility bar is hidden on phones; watched here rather than in CSS
     // because the template is inline-styled.
     this._narrowMq = window.matchMedia("(max-width: 720px)");
-    this._onNarrow = (e) => this.setState({ isNarrow: e.matches });
+    this._onNarrow = (e) => this.setState(e.matches ? { isNarrow: true } : { isNarrow: false, menuOpen: false });
     this._narrowMq.addEventListener("change", this._onNarrow);
     if (this._narrowMq.matches !== this.state.isNarrow) this.setState({ isNarrow: this._narrowMq.matches });
     this._onScroll();
@@ -1160,7 +1215,7 @@ class Component extends DCLogic {
 
     const mkItem = (x) => ({ ...x, isForm: x.kind === "form", isDoc: x.kind !== "form", cta: x.cta || (x.kind === "form" ? "Open Form" : "View Document") });
     const featuredItems = [
-      { kind: "doc", title: "Event Schedule", description: "Dates, host parishes, and times for every Commission observance \u2014 the same live calendar shown on the home page.", meta: "Live calendar \u00b7 printable", href: "files/Documents/event-schedule.html", cta: "View Schedule" },
+      { kind: "doc", title: "Event Schedule", description: "Dates, host parishes, and times for every Commission observance \u2014 the same live calendar shown on the home page.", meta: "Live calendar \u00b7 printable", href: "files/pages/event-schedule.html", cta: "View Schedule" },
       { kind: "form", title: "Host Parish Registration", description: "For parishes offering to host a Commission celebration \u2014 Santa Cruzan, San Lorenzo Ruiz, San Pedro Calungsod, or Simbang Gabi.", meta: "HTML form \u00b7 Reviewed by the Office for Cultural Diversity", href: "files/Forms/host-parish-registration.html" }
     ].map(mkItem);
 
@@ -1228,6 +1283,15 @@ class Component extends DCLogic {
         return Math.min(1, Math.max(0, 1 - t)).toFixed(3);
       })(),
       showUtilityBar: (this.props.showUtilityBar ?? true) && !this.state.isNarrow,
+      isNarrow: !!this.state.isNarrow,
+      isWide: !this.state.isNarrow,
+      menuOpen: !!(this.state.isNarrow && this.state.menuOpen),
+      menuExpanded: this.state.menuOpen ? "true" : "false",
+      barTop: this.state.menuOpen ? "translateY(7px) rotate(45deg)" : "none",
+      barMid: this.state.menuOpen ? "0" : "1",
+      barBot: this.state.menuOpen ? "translateY(-7px) rotate(-45deg)" : "none",
+      toggleMenu: () => this.setState(s => ({ menuOpen: !s.menuOpen })),
+      closeMenu: () => this.setState({ menuOpen: false }),
       showBannerImage: this.props.showBannerImage ?? true,
       scheduleOpen,
       scheduleButtonLabel: scheduleOpen ? "Hide Schedule" : "View Schedule",

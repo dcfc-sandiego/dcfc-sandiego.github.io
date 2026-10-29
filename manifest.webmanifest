@@ -1,0 +1,30 @@
+{
+  "name": "Diocesan Commission for Filipino Catholics",
+  "short_name": "DCFC",
+  "description": "Parishes, ministries, and families sharing Filipino traditions across San Diego and Imperial Counties.",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#FFFFFF",
+  "theme_color": "#112F45",
+  "icons": [
+    {
+      "src": "assets/Icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "assets/Icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "assets/Icons/icon-maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}
